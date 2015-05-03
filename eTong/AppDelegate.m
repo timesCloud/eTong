@@ -7,6 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "RootViewController.h"
+#import "Defines.h"
+#import "AVSubclassesHelper.h"
+#import "ShareInstances.h"
+#import "CustomLocationManager.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +23,30 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [AVOSCloud setApplicationId:@"ud3ao2b6rnw5xihu3aahls5npw6b6egm8mprynt9mwhdnhy1"
+                      clientKey:@"yuslkj2voplq7sb02k524oj3f3j7zlzawg6tt09rxsqlctnp"];
+    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [AVSubclassesHelper RegisterSubclasses];
+    
+    //判定是否第一次启动的变量
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
+    }
+    
+    [[CustomeLocationManager defaultManager] updateLocation];//访问一次
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.viewController = [[RootViewController alloc] init];
+    self.navgationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    self.window.rootViewController = self.navgationController;
+    self.navgationController.navigationBarHidden = YES;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
