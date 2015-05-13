@@ -80,6 +80,8 @@
 
 - (void)setupInputRectangle
 {
+    [self.view setBackgroundColor:NORMAL_BACKGROUND_COLOR];
+    
     self.navigationBar = [[NormalNavigationBar alloc] initWithTitle:@"短信验证"];
     self.navigationBar.delegate = self;
     [self.view addSubview:self.navigationBar];
@@ -190,8 +192,20 @@
     [AVUser verifyMobilePhone:mobilePhoneNo withBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             [SVProgressHUD dismissWithSuccess:@"验证成功，正在登陆" afterDelay:2];
-            [AVUser logInWithUsernameInBackground:_username password:_password block:^(AVUser *user, NSError *error) {
+            NSString *pwd;
+            pwd = _mode == 1 ? @"TimesCloud" : _password;
+            [AVUser logInWithUsernameInBackground:_username password:pwd block:^(AVUser *user, NSError *error) {
                 if (!error) {
+                    if (_mode == 1) {
+                        [SVProgressHUD showWithStatus:@"正在重置登陆密码"];
+                        [[AVUser currentUser] updatePassword:pwd newPassword:_password block:^(id object, NSError *error) {
+                            if (!error) {
+                                [SVProgressHUD dismiss];
+                            } else {
+                                [SVProgressHUD showErrorWithStatus:@"重置密码失败，请在下次登陆时使用找回密码功能重试"];
+                            }
+                        }];
+                    }
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:self];
                 } else {
                     [SVProgressHUD showErrorWithStatus:@"登录失败，请稍后重试" duration:2];

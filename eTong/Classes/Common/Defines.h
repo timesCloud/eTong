@@ -17,7 +17,7 @@
 #define KNOTIFICATION_LOGINCHANGE @"loginStateChange"
 #define KNOTIFICATION_APPRESIGNACTIVE @"appResignActive"
 #define KNOTIFICATION_LOCATIONUPDATED @"locationUpdated"
-
+#define KNOTIFICATION_SKUSCANED @"skuScaned"
 
 //UI定义
 #define STATU_BAR_HEIGHT 20
@@ -35,8 +35,15 @@
 #define kReservationCellWidth 56
 #define kReservationCellHeight 32
 
+#define TEXTSIZE_TITLE 14
+#define TEXTSIZE_SUBTITLE 13
+#define TEXTSIZE_CONTENT 13
+#define MARGIN_WIDE 10
+#define MARGIN_NARROW 5
+
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
-#define MAIN_COLOR [UIColor colorWithRed:(77.0)/255.0 green:(177.0)/255.0 blue:(53.0)/255.0 alpha:(1.0)]
+#define MAIN_COLOR [UIColor colorWithRed:(22.0)/255.0 green:(22.0)/255.0 blue:(31.0)/255.0 alpha:(1.0)]
+#define MAINMENU_COLOR [UIColor colorWithRed:(9.0)/255.0 green:(9.0)/255.0 blue:(26.0)/255.0 alpha:(1.0)]
 #define NORMAL_TEXT_COLOR [UIColor colorWithRed:(99.0)/255.0 green:(99.0)/255.0 blue:(99.0)/255.0 alpha:(1.0)]
 #define LIGHT_TEXT_COLOR [UIColor colorWithRed:(145.0)/255.0 green:(145.0)/255.0 blue:(145.0)/255.0 alpha:(1.0)]
 #define LINK_TEXT_COLOR [UIColor colorWithRed:(50.0)/255.0 green:(72.0)/255.0 blue:(136.0)/255.0 alpha:(1.0)]

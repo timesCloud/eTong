@@ -11,10 +11,11 @@
 #import "UserSummaryView.h"
 #import "LocationView.h"
 #import "UIView+XD.h"
+#import "Defines.h"
 
 @interface SidebarViewController ()<UITableViewDelegate, UITableViewDataSource, SignInDelegate>
 
-@property (nonatomic, retain) UITableView* menuTableView;
+
 
 @end
 
@@ -30,7 +31,7 @@
     // 列表
     self.menuTableView = [[UITableView alloc] initWithFrame:self.contentView.bounds];
     [self.menuTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    self.menuTableView.backgroundColor = [UIColor whiteColor];
+    self.menuTableView.backgroundColor = MAINMENU_COLOR;
     self.menuTableView.delegate = self;
     self.menuTableView.dataSource = self;
     [self.contentView addSubview:self.menuTableView];

@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class RootViewController;
+
 @interface LoginViewController : UIViewController
+
+@property (nonatomic, weak) RootViewController *rootViewController;
 
 - (void)setUserNameText:(NSString *)userName;
 

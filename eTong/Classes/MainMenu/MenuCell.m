@@ -7,6 +7,7 @@
 //
 
 #import "MenuCell.h"
+#import "Defines.h"
 
 @implementation MenuCell {
     BOOL _isHighlightBeforeHidden;
@@ -17,11 +18,11 @@
     //取消选中颜色
     UIView *backView = [[UIView alloc] initWithFrame:self.frame];
     self.selectedBackgroundView = backView;
-    self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+    self.selectedBackgroundView.backgroundColor = MAINMENU_COLOR;
         
     //取消边框线
     [self setBackgroundView:[[UIView alloc] init]];          //取消边框线
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = MAINMENU_COLOR;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -38,7 +39,7 @@
     if (highlighted) {
         _icon.image = _highlightImage;
         [_label setFont:[UIFont systemFontOfSize:18]];
-        _label.textColor = [UIColor grayColor];
+        _label.textColor = [UIColor whiteColor];
     } else {
         _icon.image = _normalImage;
         [_label setFont:[UIFont systemFontOfSize:15]];

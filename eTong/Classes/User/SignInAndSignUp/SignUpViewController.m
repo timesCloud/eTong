@@ -39,6 +39,8 @@
 
 - (void)setupInputRectangle
 {
+    [self.view setBackgroundColor:NORMAL_BACKGROUND_COLOR];
+    
     self.navigationBar = [[NormalNavigationBar alloc] initWithTitle:@"新用户注册"];
     self.navigationBar.delegate = self;
     [self.view addSubview:self.navigationBar];
@@ -170,7 +172,7 @@
     user.username = telNo;
     user.password =  password;
     user.mobilePhoneNumber = telNo;
-    [user setObject:[NSString stringWithFormat:@"跑跑用户%@", [telNo substringFromIndex:7]] forKey:@"nickname"];
+    [user setObject:[NSString stringWithFormat:@"壹通用户%@", [telNo substringFromIndex:7]] forKey:@"nickname"];
     [SVProgressHUD showWithStatus:@"正在注册"];
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

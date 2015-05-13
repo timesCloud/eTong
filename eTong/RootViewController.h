@@ -10,5 +10,7 @@
 
 @interface RootViewController : UIViewController
 
+-(void)reloadSubViews;
+
 @end
 

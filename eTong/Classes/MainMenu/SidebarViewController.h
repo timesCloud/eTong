@@ -23,6 +23,8 @@
 @property (nonatomic, weak) id<SidebarViewDelegate> delegate;
 @property (nonatomic, weak) id<SignInDelegate> signInDelegate;
 
+@property (nonatomic, retain) UITableView* menuTableView;
+
 - (void)setSelectedIndex:(NSInteger)index withSection:(NSInteger)section;
 
 @end

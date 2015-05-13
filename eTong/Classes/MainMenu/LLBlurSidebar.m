@@ -8,6 +8,7 @@
 
 #import "LLBlurSidebar.h"
 #import <Accelerate/Accelerate.h>
+#import "Defines.h"
 
 //#define LLDEBUG
 #ifdef LLDEBUG

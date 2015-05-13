@@ -19,10 +19,11 @@
 #import "Defines.h"
 #import "InputPhoneNoViewController.h"
 #import "CustomSettingViewController.h"
+#import "RootViewController.h"
+#import "ShareInstances.h"
+#import "AccountInitViewController.h"
 
-@interface LoginViewController()<UITextFieldDelegate, NormalNavigationDelegate, UIAlertViewDelegate>
-
-@property (nonatomic, strong) NormalNavigationBar *navigationBar;
+@interface LoginViewController()<UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, weak) UITextField *userText;
 @property (nonatomic, weak) UILabel *userTextName;
@@ -41,16 +42,36 @@
     [self setupInputRectangle];
 }
 
+- (void)viewDidAppear:(BOOL)animated {//针对在短信验证界面成功登陆的情况
+//    if ([AVUser currentUser] != nil) {
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+//        [_rootViewController reloadSubViews];
+//    }
+}
+
 - (void)setupInputRectangle
 {
-    [self.view setBackgroundColor:NORMAL_BACKGROUND_COLOR];
-    self.navigationBar = [[NormalNavigationBar alloc] initWithTitle:@"登陆"];
-    self.navigationBar.delegate = self;
-    [self.view addSubview:self.navigationBar];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    UIImage *hdcLogoImage = [UIImage imageNamed:@"HDCLogo.jpg"];
+    UIImageView *hdcLogoView = [[UIImageView alloc] initWithImage:hdcLogoImage];
+    [hdcLogoView setFrame:CGRectMake(0, 20, self.view.width, hdcLogoImage.size.height * (self.view.width / hdcLogoImage.size.width))];
+    [self.view addSubview:hdcLogoView];
+    
+    UIView *welcomeView = [[UIView alloc] initWithFrame:CGRectMake(0, hdcLogoView.bottom + 20, self.view.width, 44)];
+    [ShareInstances addTopBottomBorderOnView:welcomeView];
+    [welcomeView setBackgroundColor:NORMAL_BACKGROUND_COLOR];
+    UILabel *welcomeLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, welcomeView.width, 16)];
+    [welcomeLable setFont:[UIFont systemFontOfSize:16]];
+    [welcomeLable setTextColor:NORMAL_TEXT_COLOR];
+    [welcomeLable setTextAlignment:NSTextAlignmentCenter];
+    [welcomeLable setText:@"欢迎使用壹通，请先登录或注册"];
+    [welcomeView addSubview:welcomeLable];
+    [self.view addSubview:welcomeView];
     
     CGFloat centerX = self.view.width * 0.5;
     InputText *inputText = [[InputText alloc] init];
-    CGFloat userY = 100;
+    CGFloat userY = welcomeView.bottom + 30;
     UITextField *userText = [inputText setupWithIcon:nil textY:userY centerX:centerX point:nil];
     userText.delegate = self;
     self.userText = userText;
@@ -109,6 +130,24 @@
     [signUpButton setUnderLineColor:[UIColor grayColor]];
     [signUpButton addTarget:self action:@selector(doSignUp) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpButton];
+    
+    UIView *existingAccountInitView = [[UIView alloc] initWithFrame:CGRectMake(0, signUpButton.bottom + 40, self.view.width, 44)];
+    [ShareInstances addTopBottomBorderOnView:existingAccountInitView];
+    [existingAccountInitView setBackgroundColor:[UIColor whiteColor]];
+    UILabel *existingAccountInitLable = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, existingAccountInitView.width - 20 - 44, 14)];
+    [existingAccountInitLable setFont:[UIFont systemFontOfSize:14]];
+    [existingAccountInitLable setTextColor:NORMAL_TEXT_COLOR];
+    [existingAccountInitLable setTextAlignment:NSTextAlignmentCenter];
+    [existingAccountInitLable setText:@"品牌商、经销商首次登陆入口"];
+    [existingAccountInitView addSubview:existingAccountInitLable];
+    UIImageView *goImageView = [[UIImageView alloc] initWithFrame:CGRectMake(existingAccountInitView.width - 44, 0, 44, existingAccountInitView.height)];
+    [goImageView setImage:[UIImage imageNamed:@"go_normal.png"]];
+    [goImageView setContentMode:UIViewContentModeCenter];
+    [existingAccountInitView addSubview:goImageView];
+    [self.view addSubview:existingAccountInitView];
+    UITapGestureRecognizer *accountInitTGP = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doAccountInit)];
+    [existingAccountInitView addGestureRecognizer:accountInitTGP];
+    
 }
 
 - (UILabel *)setupTextName:(NSString *)textName frame:(CGRect)frame
@@ -167,10 +206,6 @@
     }
 }
 
-- (void)doReturn {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 #pragma mark - touchesBegan
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -209,14 +244,17 @@
     [AVUser logInWithUsernameInBackground:username password:password block:^(AVUser *user, NSError *error) {
         if (user != nil) {
             [SVProgressHUD dismissWithSuccess:@"登陆成功"];
+            [self.navigationController popToRootViewControllerAnimated:NO];
             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:self];
             
-            if (![self userSettingIsCompletion]) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"完善个人资料" message:@"您的个人资料尚有未完善之处，为了让跑跑更好的为您服务，请再恩赐一点点时间吧" delegate:self cancelButtonTitle:@"下次吧" otherButtonTitles:@"立即完善", nil];
-                [alertView show];
-            } else{
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
+//            if (![self userSettingIsCompletion]) {
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"完善个人资料" message:@"您的个人资料尚有未完善之处，为了让跑跑更好的为您服务，请再恩赐一点点时间吧" delegate:self cancelButtonTitle:@"下次吧" otherButtonTitles:@"立即完善", nil];
+//                [alertView show];
+//            } else{
+                //[self dismissViewControllerAnimated:YES completion:^{
+                    //[_rootViewController reloadSubViews];
+                //}];
+//            }
         } else {
             NSInteger errorCode = error.code;
             if (errorCode == 215) {
@@ -254,6 +292,11 @@
 -(void)doSignUp {
     SignUpViewController *signUpVC = [[SignUpViewController alloc] init];
     [self.navigationController pushViewController:signUpVC animated:YES];
+}
+
+-(void)doAccountInit {
+    AccountInitViewController *accountInitVC = [[AccountInitViewController alloc] init];
+    [self.navigationController pushViewController:accountInitVC animated:YES];
 }
 
 - (void)setUserNameText:(NSString *)userName{

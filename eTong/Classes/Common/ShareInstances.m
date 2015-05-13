@@ -174,4 +174,18 @@ static CLLocation *lastLocation;
     [SVProgressHUD showErrorWithStatus:@"网络不给力，请稍候重试" duration:2];
 }
 
++(UILabel *)addLabel:(NSString *)text withFrame:(CGRect)frame withSuperView:(UIView *)superView withTextColor:(UIColor *)color withAlignment:(NSTextAlignment)alignment withTextSize:(CGFloat)textSize{
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+    [label setFont:[UIFont systemFontOfSize:textSize]];
+    [label setTextColor:color];
+    [label setTextAlignment:alignment];
+    [label setText:text];
+    [superView addSubview:label];
+    return label;
+}
+
++(UILabel *)addSubTitleLabel:(NSString *)title withFrame:(CGRect)frame withSuperView:(UIView *)superView{
+    return [ShareInstances addLabel:title withFrame:frame withSuperView:superView withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_SUBTITLE];
+}
+
 @end

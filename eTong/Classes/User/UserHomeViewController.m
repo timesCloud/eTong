@@ -16,10 +16,7 @@
 #import "ImgShowViewController.h"
 #import "VPImageCropperViewController.h"
 
-
-#import "MyOrderViewController.h"
 #import "CustomSettingViewController.h"
-#import "WatchedStadiumViewController.h"
 #import "DynamicWaveView.h"
 #import "CustomSettingViewController.h"
 #import "ModifyPasswordViewController.h"
@@ -238,8 +235,8 @@
 - (void)doLogout:(id)sender {
     [SVProgressHUD showSuccessWithStatus:@"已退出当前账户" duration:2];
     [AVUser logOut];
+    [self.navigationController popToRootViewControllerAnimated:NO];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:self];
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)doReturn {
@@ -258,14 +255,12 @@
 
 //点击“我的收藏”
 - (void)myFavoriteOnTouch {
-    WatchedStadiumViewController *watchedStadiumVC = [[WatchedStadiumViewController alloc] init];
-    [self.navigationController pushViewController:watchedStadiumVC animated:YES];
+
 }
 
 //点击“我的订单”
 - (void)myOrderOnTouch {
-    MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
-    [self.navigationController pushViewController:myOrderVC animated:YES];
+
 }
 
 //点击“关于我们”

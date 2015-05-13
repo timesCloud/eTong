@@ -7,29 +7,30 @@
 //
 
 #import "AVSubclassesHelper.h"
-#import "Stadium.h"
-#import "StadiumType.h"
-#import "StadiumSpecification.h"
-#import "StadiumImage.h"
-#import "sportField.h"
-#import "SpecialDay.h"
-#import "ReservationOrder.h"
-#import "ReservationSuborder.h"
-#import "Bulletin.h"
+#import "SalesVolumeOrigin.h"
+#import "SKU.h"
+#import "Brand.h"
+#import "PackingSpecification.h"
+#import "TerminalStore.h"
+#import "MarketingChannel.h"
+#import "Stock.h"
+#import "SalesVolumeProcessed.h"
+#import "Purchases.h"
+#import "Delivery.h"
 
 @implementation AVSubclassesHelper
 
 +(void) RegisterSubclasses {
-    [Stadium registerSubclass];
-    [StadiumType registerSubclass];
-    [StadiumSpecification registerSubclass];
-    [StadiumImage registerSubclass];
-    [District registerSubclass];
-    [SportField registerSubclass];
-    [SpecialDay registerSubclass];
-    [ReservationOrder registerSubclass];
-    [ReservationSuborder registerSubclass];
-    [Bulletin registerSubclass];
+    [SalesVolumeOrigin registerSubclass];
+    [SKU registerSubclass];
+    [Brand registerSubclass];
+    [PackingSpecification registerSubclass];
+    [TerminalStore registerSubclass];
+    [MarketingChannel registerSubclass];
+    [Stock registerSubclass];
+    [SalesVolumeProcessed registerSubclass];
+    [Purchases registerSubclass];
+    [Delivery registerSubclass];
 }
 
 @end
