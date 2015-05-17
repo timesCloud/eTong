@@ -95,7 +95,7 @@
                     [ShareInstances addBottomSepratorBorderOnView:cell];
                     break;
                 case 1:
-                    [cell.textLabel setText:@"分享跑跑"];
+                    [cell.textLabel setText:@"分享壹通"];
                     [ShareInstances addBottomSepratorBorderOnView:cell];
                     break;
                 case 2:
@@ -185,32 +185,32 @@
 
 - (void)showIntroWithCrossDissolve {
     EAIntroPage *page1 = [EAIntroPage page];
-    page1.title = @"约运动，上跑跑";
-    page1.desc = @"跑跑是一款运动社交应用，运动是一种时尚，更是一种生活方式";
+    page1.title = @"壹通1";
+    page1.desc = @"壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通";
     page1.bgImage = [UIImage imageNamed:@"1"];
     page1.titleImage = [UIImage imageNamed:@"original"];
     
     EAIntroPage *page2 = [EAIntroPage page];
-    page2.title = @"约运动，上跑跑";
-    page2.desc = @"查找附近的球队、对手、美女，热点信息一览无余，线上约运动，简单快捷！";
+    page2.title = @"壹通2";
+    page2.desc = @"壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通";
     page2.bgImage = [UIImage imageNamed:@"2"];
     page2.titleImage = [UIImage imageNamed:@"supportcat"];
     
     EAIntroPage *page3 = [EAIntroPage page];
-    page3.title = @"约运动，上跑跑";
-    page3.desc = @"找教练，照片、资质、价格、评价、级别等信息一应俱全，资源丰富，价格透明！";
+    page3.title = @"壹通3";
+    page3.desc = @"壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通";
     page3.bgImage = [UIImage imageNamed:@"3"];
     page3.titleImage = [UIImage imageNamed:@"femalecodertocat"];
     
     EAIntroPage *page4 = [EAIntroPage page];
-    page4.title = @"约运动，上跑跑";
-    page4.desc = @"找场地，位置、规模、环境、价格、评价等信息尽收眼底，线上支付，一锤定音！";
+    page4.title = @"壹通4";
+    page4.desc = @"壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通";
     page4.bgImage = [UIImage imageNamed:@"1"];
     page4.titleImage = [UIImage imageNamed:@"original"];
     
     EAIntroPage *page5 = [EAIntroPage page];
-    page5.title = @"约运动，上跑跑";
-    page5.desc = @"发布组队需求，一呼百应；寻找“组织”，快速回归！";
+    page5.title = @"壹通5";
+    page5.desc = @"壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通壹通";
     page5.bgImage = [UIImage imageNamed:@"2"];
     page5.titleImage = [UIImage imageNamed:@"supportcat"];
     

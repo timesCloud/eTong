@@ -15,11 +15,17 @@
 #import "SVProgressHUD.h"
 #import "CustomDatePickerView.h"
 
+@interface StockEntryView()<CustomDatePickerViewDelegate>
+
+@end
+
 @implementation StockEntryView{
     UIImageView *skuImage;
     UILabel *skuNameLable;
     UILabel *hintLabel;
     UILabel *dtLabel;
+    
+    NSDate *selectedDate;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -61,9 +67,26 @@
     //时间
     UILabel *dtTitle = [ShareInstances addSubTitleLabel:@"库存盘点日期" withFrame:CGRectMake(MARGIN_NARROW, skuView.bottom + MARGIN_NARROW, self.width, TEXTSIZE_SUBTITLE) withSuperView:self];
     
-    UIView *dtView = [[UIView alloc] initWithFrame:CGRectMake(0, dtTitle.bottom + MARGIN_NARROW, self.width, 100)];
+    UIView *dtView = [[UIView alloc] initWithFrame:CGRectMake(0, dtTitle.bottom + MARGIN_NARROW, self.width, 44)];
     [dtView setBackgroundColor:[UIColor whiteColor]];
+    [ShareInstances addGoIndicateOnView:dtView];
     [self addSubview:dtView];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    selectedDate = [NSDate date];
+    dtLabel = [ShareInstances addLabel:[dateFormatter stringFromDate:selectedDate] withFrame:CGRectMake(MARGIN_NARROW, (44 - TEXTSIZE_BIG) / 2, dtView.width - 44 - MARGIN_NARROW, TEXTSIZE_BIG) withSuperView:dtView withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_BIG];
+    [dtView addSubview:dtLabel];
+    UITapGestureRecognizer *dtTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(OnEditEntryDate)];
+    [dtView addGestureRecognizer:dtTapGR];
+    
+    //库存量
+    UILabel *countTitle = [ShareInstances addSubTitleLabel:@"库存数量" withFrame:CGRectMake(MARGIN_NARROW, dtView.bottom + MARGIN_NARROW, self.width, TEXTSIZE_SUBTITLE) withSuperView:self];
+    
+    UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(0, countTitle.bottom, self.width, 100)];
+    [ShareInstances addTopBottomBorderOnView:countView];
+    [countView setBackgroundColor:[UIColor whiteColor]];
+    [self addSubview:countView];
     
     
 }
@@ -111,5 +134,20 @@
         }
     }];
 }
+
+-(void)OnEditEntryDate{
+    CustomDatePickerView *customDatePickerView = [[CustomDatePickerView alloc] initWithFrame:self.frame withDefaultDate:selectedDate];
+    customDatePickerView.delegate = self;
+    [self addSubview:customDatePickerView];
+}
+
+- (void)dateChanged:(NSDate *)date{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    selectedDate = date;
+    [dtLabel setText:[dateFormatter stringFromDate:selectedDate]];
+}
+
+
 
 @end

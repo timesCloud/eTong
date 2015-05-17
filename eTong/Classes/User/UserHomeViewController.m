@@ -116,7 +116,7 @@
     [mySessionLabel setFont:[UIFont systemFontOfSize:lNormalTextSize]];
     [mySessionLabel setTextColor:NORMAL_TEXT_COLOR];
     [mySessionLabel setTextAlignment:NSTextAlignmentCenter];
-    [mySessionLabel setText:@"我的场次"];
+    [mySessionLabel setText:@"我的店铺"];
     [mySessionView addSubview:mySessionLabel];
     [mySessionView setHeight:mySessionLabel.bottom + lMargin];
     [importantOperView setHeight:mySessionView.height];

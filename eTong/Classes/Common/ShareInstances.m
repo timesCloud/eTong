@@ -14,8 +14,8 @@
 static AVUser *lastUser;
 static UIImage *currentUserHeadPortrait;
 static UIImage *currentUserHeadPortraitThumbnail;
-
 static CLLocation *lastLocation;
+static TerminalStore *currentTerminalStore;
 
 @implementation ShareInstances
 
@@ -186,6 +186,30 @@ static CLLocation *lastLocation;
 
 +(UILabel *)addSubTitleLabel:(NSString *)title withFrame:(CGRect)frame withSuperView:(UIView *)superView{
     return [ShareInstances addLabel:title withFrame:frame withSuperView:superView withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_SUBTITLE];
+}
+
++(UIImageView *)addGoIndicateOnView:(UIView *)view{
+    UIImageView *goImageView = [[UIImageView alloc] initWithFrame:CGRectMake(view.width - 44, (view.height - 44) / 2, 44, 44)];
+    [goImageView setImage:[UIImage imageNamed:@"go_normal.png"]];
+    [goImageView setContentMode:UIViewContentModeCenter];
+    [view addSubview:goImageView];
+    return goImageView;
+}
+
++(void)setCurrentTerminalStore{
+    AVQuery *query = [TerminalStore query];
+    AVUser *user = [AVUser currentUser];
+    [query whereKey:@"shopKeeper" equalTo:user];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects.count > 0) {
+            currentTerminalStore = [objects objectAtIndex:0];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_COMENTITYLOADED object:self];
+        }
+    }];
+}
+
++(TerminalStore *)getCurrentTerminalStore{
+    return currentTerminalStore;
 }
 
 @end

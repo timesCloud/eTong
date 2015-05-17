@@ -28,7 +28,7 @@ static NSInteger welcomeLabelHeight = 60;
 - (instancetype)init {
     self = [super init];
     [self initUserStatu];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStateChange:) name:KNOTIFICATION_LOGINCHANGE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStateChange:) name:KNOTIFICATION_LOGINCHANGE object:nil];
     [self setBackgroundColor:MAIN_COLOR];
     
     CGRect frame = CGRectMake(200, 20, 44, welcomeLabelHeight);

@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AVOSCloud/AVOSCloud.h>
+#import "TerminalStore.h"
 
 @interface ShareInstances : NSObject
 
@@ -41,5 +42,9 @@
 
 +(UILabel *)addSubTitleLabel:(NSString *)title withFrame:(CGRect)frame withSuperView:(UIView *)superView;
 +(UILabel *)addLabel:(NSString *)text withFrame:(CGRect)frame withSuperView:(UIView *)superView withTextColor:(UIColor *)color withAlignment:(NSTextAlignment)alignment withTextSize:(CGFloat)textSize;
++(UIImageView *)addGoIndicateOnView:(UIView *)view;
+
++(void)setCurrentTerminalStore;
++(TerminalStore *)getCurrentTerminalStore;
 
 @end

@@ -44,9 +44,12 @@
 		D81A456D1B02407D00AAB9B4 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D81A456B1B02407D00AAB9B4 /* line@2x.png */; };
 		D81A456E1B02407D00AAB9B4 /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D81A456C1B02407D00AAB9B4 /* pick_bg@2x.png */; };
 		D81A45711B0240AF00AAB9B4 /* BarcodeScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A45701B0240AF00AAB9B4 /* BarcodeScanViewController.m */; };
+		D81A45771B03293800AAB9B4 /* CustomDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A45761B03293800AAB9B4 /* CustomDatePickerView.m */; };
+		D81A457A1B0333E800AAB9B4 /* PackingStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A45791B0333E800AAB9B4 /* PackingStockTableViewCell.m */; };
+		D81A457E1B033C0100AAB9B4 /* SKUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A457D1B033C0100AAB9B4 /* SKUTableViewCell.m */; };
+		D81A45811B03438700AAB9B4 /* SKUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A45801B03438700AAB9B4 /* SKUView.m */; };
 		D8356F981AF5312D002C6638 /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8356F621AF5312D002C6638 /* citydict.plist */; };
 		D8356F991AF5312D002C6638 /* CityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8356F641AF5312D002C6638 /* CityListViewController.m */; };
-		D8356F9A1AF5312D002C6638 /* CustomDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8356F671AF5312D002C6638 /* CustomDatePickerView.m */; };
 		D8356F9B1AF5312D002C6638 /* CustomSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8356F691AF5312D002C6638 /* CustomSettingViewController.m */; };
 		D8356F9C1AF5312D002C6638 /* CustomTextInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8356F6B1AF5312D002C6638 /* CustomTextInputViewController.m */; };
 		D8356F9D1AF5312D002C6638 /* FavoriteSportSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8356F6D1AF5312D002C6638 /* FavoriteSportSettingViewController.m */; };
@@ -261,11 +264,17 @@
 		D81A456C1B02407D00AAB9B4 /* pick_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_bg@2x.png"; sourceTree = "<group>"; };
 		D81A456F1B0240AF00AAB9B4 /* BarcodeScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarcodeScanViewController.h; sourceTree = "<group>"; };
 		D81A45701B0240AF00AAB9B4 /* BarcodeScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarcodeScanViewController.m; sourceTree = "<group>"; };
+		D81A45751B03293800AAB9B4 /* CustomDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDatePickerView.h; sourceTree = "<group>"; };
+		D81A45761B03293800AAB9B4 /* CustomDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDatePickerView.m; sourceTree = "<group>"; };
+		D81A45781B0333E800AAB9B4 /* PackingStockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackingStockTableViewCell.h; sourceTree = "<group>"; };
+		D81A45791B0333E800AAB9B4 /* PackingStockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackingStockTableViewCell.m; sourceTree = "<group>"; };
+		D81A457C1B033C0100AAB9B4 /* SKUTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUTableViewCell.h; sourceTree = "<group>"; };
+		D81A457D1B033C0100AAB9B4 /* SKUTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUTableViewCell.m; sourceTree = "<group>"; };
+		D81A457F1B03438700AAB9B4 /* SKUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUView.h; sourceTree = "<group>"; };
+		D81A45801B03438700AAB9B4 /* SKUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUView.m; sourceTree = "<group>"; };
 		D8356F621AF5312D002C6638 /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
 		D8356F631AF5312D002C6638 /* CityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListViewController.h; sourceTree = "<group>"; };
 		D8356F641AF5312D002C6638 /* CityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListViewController.m; sourceTree = "<group>"; };
-		D8356F661AF5312D002C6638 /* CustomDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDatePickerView.h; sourceTree = "<group>"; };
-		D8356F671AF5312D002C6638 /* CustomDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDatePickerView.m; sourceTree = "<group>"; };
 		D8356F681AF5312D002C6638 /* CustomSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSettingViewController.h; sourceTree = "<group>"; };
 		D8356F691AF5312D002C6638 /* CustomSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSettingViewController.m; sourceTree = "<group>"; };
 		D8356F6A1AF5312D002C6638 /* CustomTextInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextInputViewController.h; sourceTree = "<group>"; };
@@ -572,6 +581,8 @@
 		D80896F71AF45F7C001A4621 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D81A45751B03293800AAB9B4 /* CustomDatePickerView.h */,
+				D81A45761B03293800AAB9B4 /* CustomDatePickerView.m */,
 				D80896F81AF45F7C001A4621 /* CustomLocationManager.h */,
 				D80896F91AF45F7C001A4621 /* CustomLocationManager.m */,
 				D80896FA1AF45F7C001A4621 /* DateTimeHelper.h */,
@@ -633,6 +644,7 @@
 		D81A44DD1B00F59A00AAB9B4 /* TerminalStore */ = {
 			isa = PBXGroup;
 			children = (
+				D81A457B1B033BD300AAB9B4 /* SKUList */,
 				D81A44DE1B00F6F100AAB9B4 /* DataEntry */,
 			);
 			path = TerminalStore;
@@ -661,8 +673,21 @@
 			children = (
 				D81A456F1B0240AF00AAB9B4 /* BarcodeScanViewController.h */,
 				D81A45701B0240AF00AAB9B4 /* BarcodeScanViewController.m */,
+				D81A45781B0333E800AAB9B4 /* PackingStockTableViewCell.h */,
+				D81A45791B0333E800AAB9B4 /* PackingStockTableViewCell.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		D81A457B1B033BD300AAB9B4 /* SKUList */ = {
+			isa = PBXGroup;
+			children = (
+				D81A457C1B033C0100AAB9B4 /* SKUTableViewCell.h */,
+				D81A457D1B033C0100AAB9B4 /* SKUTableViewCell.m */,
+				D81A457F1B03438700AAB9B4 /* SKUView.h */,
+				D81A45801B03438700AAB9B4 /* SKUView.m */,
+			);
+			path = SKUList;
 			sourceTree = "<group>";
 		};
 		D8356F601AF5312D002C6638 /* User */ = {
@@ -696,8 +721,6 @@
 				D8356F6A1AF5312D002C6638 /* CustomTextInputViewController.h */,
 				D8356F6B1AF5312D002C6638 /* CustomTextInputViewController.m */,
 				D8356F6C1AF5312D002C6638 /* FavoriteSportSettingViewController.h */,
-				D8356F661AF5312D002C6638 /* CustomDatePickerView.h */,
-				D8356F671AF5312D002C6638 /* CustomDatePickerView.m */,
 				D8356F6D1AF5312D002C6638 /* FavoriteSportSettingViewController.m */,
 				D8356F6E1AF5312D002C6638 /* IndustrySettingViewController.h */,
 				D8356F6F1AF5312D002C6638 /* IndustrySettingViewController.m */,
@@ -1276,6 +1299,7 @@
 				D8356FAC1AF5312D002C6638 /* ResetPasswordViewController.m in Sources */,
 				D8356FB01AF5312D002C6638 /* UserHomeViewController.m in Sources */,
 				D8356FAD1AF5312D002C6638 /* LoginViewController.m in Sources */,
+				D81A457E1B033C0100AAB9B4 /* SKUTableViewCell.m in Sources */,
 				D83570041AF53363002C6638 /* CustomAnnotationView.m in Sources */,
 				D81A44D81B00F05B00AAB9B4 /* Purchases.m in Sources */,
 				D83570CB1AFB9043002C6638 /* AccountInitViewController.m in Sources */,
@@ -1283,8 +1307,10 @@
 				D81A44C01AFE3B9C00AAB9B4 /* SalesVolumeOrigin.m in Sources */,
 				D80896F11AF45F5D001A4621 /* LLBlurSidebar.m in Sources */,
 				D80897111AF45FCF001A4621 /* RootViewController.m in Sources */,
+				D81A457A1B0333E800AAB9B4 /* PackingStockTableViewCell.m in Sources */,
 				D83570061AF53363002C6638 /* MenuHrizontal.m in Sources */,
 				D8356F9E1AF5312D002C6638 /* IndustrySettingViewController.m in Sources */,
+				D81A45771B03293800AAB9B4 /* CustomDatePickerView.m in Sources */,
 				D835700D1AF53363002C6638 /* SGFocusImageItem.m in Sources */,
 				D8356F991AF5312D002C6638 /* CityListViewController.m in Sources */,
 				D83570101AF53363002C6638 /* VPImageCropperViewController.m in Sources */,
@@ -1295,7 +1321,6 @@
 				D8356F9D1AF5312D002C6638 /* FavoriteSportSettingViewController.m in Sources */,
 				D835700A1AF53363002C6638 /* CircleView.m in Sources */,
 				D8356FFD1AF53363002C6638 /* CustomTableView.m in Sources */,
-				D8356F9A1AF5312D002C6638 /* CustomDatePickerView.m in Sources */,
 				D81A44C91AFE3F4000AAB9B4 /* PackingSpecification.m in Sources */,
 				D835700B1AF53363002C6638 /* EGORefreshTableHeaderView.m in Sources */,
 				D80896F31AF45F5D001A4621 /* MenuCell.m in Sources */,
@@ -1313,6 +1338,7 @@
 				D80896F61AF45F5D001A4621 /* UserSummaryView.m in Sources */,
 				D80896F21AF45F5D001A4621 /* LocationView.m in Sources */,
 				D83570141AF533BF002C6638 /* DynamicWaveView.m in Sources */,
+				D81A45811B03438700AAB9B4 /* SKUView.m in Sources */,
 				D81A44D21B00EB7600AAB9B4 /* Stock.m in Sources */,
 				D81A44CF1AFF9D9700AAB9B4 /* MarketingChannel.m in Sources */,
 				D81A44D51B00EF8200AAB9B4 /* SalesVolumeProcessed.m in Sources */,

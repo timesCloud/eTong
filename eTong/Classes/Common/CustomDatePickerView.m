@@ -70,21 +70,10 @@
 
 - (void)doRightButtonClick:(id)sender {
     NSDate *curDate = datePicker.date;
-    if (![curDate isEqualToDate:originDate]) {
-        AVUser *curUser = [AVUser currentUser];
-        [curUser setObject:curDate forKey:@"birthday"];
-        [SVProgressHUD showWithStatus:@"正在更新生日"];
-        [curUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                if ([_delegate respondsToSelector:@selector(dateChanged)]) {
-                    [_delegate dateChanged];
-                }
-                [SVProgressHUD dismiss];
-            } else {
-                [SVProgressHUD showErrorWithStatus:@"更新失败" duration:2];
-            }
-        }];
-    }
+
+    if ([_delegate respondsToSelector:@selector(dateChanged:)]) 
+        [_delegate dateChanged:curDate];
+
     [self removeFromSuperview];
 }
 

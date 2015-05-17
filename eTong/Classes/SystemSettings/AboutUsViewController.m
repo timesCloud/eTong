@@ -61,7 +61,7 @@
     [protocolLabel setFont:[UIFont systemFontOfSize:lProtocolTextSize]];
     [protocolLabel setTextColor:LINK_TEXT_COLOR];
     [protocolLabel setTextAlignment:NSTextAlignmentCenter];
-    [protocolLabel setText:@"查看Running跑跑软件许可及服务协议"];
+    [protocolLabel setText:@"查看壹通软件许可及服务协议"];
     [self.view addSubview:protocolLabel];
 }
 

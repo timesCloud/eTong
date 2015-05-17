@@ -11,7 +11,7 @@
 @protocol CustomDatePickerViewDelegate <NSObject>
 
 @required
-- (void)dateChanged;
+- (void)dateChanged:(NSDate *)date;
 
 @end
 

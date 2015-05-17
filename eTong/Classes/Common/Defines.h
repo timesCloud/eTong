@@ -18,6 +18,7 @@
 #define KNOTIFICATION_APPRESIGNACTIVE @"appResignActive"
 #define KNOTIFICATION_LOCATIONUPDATED @"locationUpdated"
 #define KNOTIFICATION_SKUSCANED @"skuScaned"
+#define KNOTIFICATION_COMENTITYLOADED @"terminalStoreLoaded"
 
 //UI定义
 #define STATU_BAR_HEIGHT 20
@@ -38,6 +39,7 @@
 #define TEXTSIZE_TITLE 14
 #define TEXTSIZE_SUBTITLE 13
 #define TEXTSIZE_CONTENT 13
+#define TEXTSIZE_BIG 17
 #define MARGIN_WIDE 10
 #define MARGIN_NARROW 5
 
