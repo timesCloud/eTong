@@ -111,10 +111,10 @@
     retrievePasswordButton.centerX = self.view.width * 0.25;
     retrievePasswordButton.y = CGRectGetMaxY(signInBtn.frame) + 20;
     [retrievePasswordButton setTitle:@"忘记密码 ?" forState:UIControlStateNormal];
-    [retrievePasswordButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [retrievePasswordButton setTitleColor:LINK_TEXT_COLOR forState:UIControlStateNormal];
     [retrievePasswordButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [retrievePasswordButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [retrievePasswordButton setUnderLineColor:[UIColor grayColor]];
+    [retrievePasswordButton setUnderLineColor:LINK_TEXT_COLOR];
     [retrievePasswordButton addTarget:self action:@selector(doRetrievePassword) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:retrievePasswordButton];
     
@@ -124,10 +124,10 @@
     signUpButton.centerX = self.view.width * 0.75;
     signUpButton.y = CGRectGetMaxY(signInBtn.frame) + 20;
     [signUpButton setTitle:@"新用户注册" forState:UIControlStateNormal];
-    [signUpButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [signUpButton setTitleColor:LINK_TEXT_COLOR forState:UIControlStateNormal];
     [signUpButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [signUpButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [signUpButton setUnderLineColor:[UIColor grayColor]];
+    [signUpButton setUnderLineColor:LINK_TEXT_COLOR];
     [signUpButton addTarget:self action:@selector(doSignUp) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpButton];
     

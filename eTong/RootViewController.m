@@ -17,9 +17,14 @@
 #import "CityListViewController.h"
 #import "EAIntroView.h"
 #import "SorryView.h"
-#import "StockEntryView.h"
 #import "ShareInstances.h"
 #import "SKUView.h"
+#import "UIView+XD.h"
+#import "BarcodeScanViewController.h"
+#import "SKU.h"
+#import "SVProgressHUD.h"
+#import "SKUSearchResultViewController.h"
+#import "InvestigateEntryView.h"
 
 @interface RootViewController () <SignInDelegate, SidebarViewDelegate, CityListDelegate, EAIntroDelegate> {
     UIView *navigationBar;
@@ -31,10 +36,10 @@
 
 @property (nonatomic, strong) SidebarViewController* sidebarVC;
 @property (nonatomic, strong) SettingHomeView *settingHomeView;
-@property (nonatomic, strong) StockEntryView *stockEntryView;
 @property (nonatomic, strong) SKUView *skuView;
 @property (nonatomic, strong) SorryView *sorryView;
-@property (nonatomic, strong) UIButton *cityButton;
+@property (nonatomic, strong) InvestigateEntryView *investigateEntryView;
+@property (nonatomic, strong) UIButton *rightButton;
 
 @end
 
@@ -104,8 +109,8 @@
         switch (curUserCharacter) {
             case 1:
                 items = @[@{@"title":@"主页",@"imagenormal":@"home_normal.png",@"imagehighlight":@"home_highlight.png"},
-                          @{@"title":@"销售录入",@"imagenormal":@"sale_edit_normal.png",@"imagehighlight":@"sale_edit_highlight.png"},
-                          @{@"title":@"库存录入",@"imagenormal":@"stock_edit_normal.png",@"imagehighlight":@"stock_edit_highlight.png"},
+                          @{@"title":@"进货/库存录入",@"imagenormal":@"sale_edit_normal.png",@"imagehighlight":@"sale_edit_highlight.png"},
+                          @{@"title":@"每日一评",@"imagenormal":@"stock_edit_normal.png",@"imagehighlight":@"stock_edit_highlight.png"},
                           @{@"title":@"统计",@"imagenormal":@"stat_normal.png",@"imagehighlight":@"stat_highlight.png"},
                           @{@"title":@"需求帮帮",@"imagenormal":@"link_normal.png",@"imagehighlight":@"link_highlight.png"},
                           @{@"title":@"投诉建议",@"imagenormal":@"mail_normal.png",@"imagehighlight":@"mail_highlight.png"},
@@ -233,16 +238,11 @@
         [showMenuButton setContentMode:UIViewContentModeLeft];
         [self->navigationBar addSubview:showMenuButton];
         
-        _cityButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + self.view.frame.size.width - NAVIGATION_BUTTON_RESPONSE_WIDTH, STATU_BAR_HEIGHT,NAVIGATION_BUTTON_RESPONSE_WIDTH, NAVIGATION_BUTTON_HEIGHT)];
-        [_cityButton setImage:[UIImage imageNamed:@"down_normal.png"] forState:UIControlStateNormal];
-        [_cityButton setImageEdgeInsets:UIEdgeInsetsMake(0, NAVIGATION_BUTTON_RESPONSE_WIDTH-NAVIGATION_BUTTON_WIDTH + 15, 0, 0)];
-        [_cityButton setTitle:[[AVUser currentUser] objectForKey:@"city"] forState:UIControlStateNormal];
-        [_cityButton setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
-        //searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [_cityButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        [_cityButton setTitleEdgeInsets:UIEdgeInsetsMake(15, 0, 15, 25)];
-        [_cityButton addTarget:self action:@selector(doSelectCity) forControlEvents:UIControlEventTouchUpInside];
-        [self->navigationBar addSubview:_cityButton];
+        _rightButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + self.view.frame.size.width - NAVIGATION_BUTTON_RESPONSE_WIDTH, STATU_BAR_HEIGHT,NAVIGATION_BUTTON_RESPONSE_WIDTH, NAVIGATION_BUTTON_HEIGHT)];
+        [_rightButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, NAVIGATION_RBUTTON_MARGIN_RIGHT)];
+        [_rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_rightButton addTarget:self action:@selector(doSelectCity) forControlEvents:UIControlEventTouchUpInside];
+        //[self->navigationBar addSubview:_rightButton];
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + (self.view.frame.size.width - NAVIGATION_TITLE_WIDTH) / 2, STATU_BAR_HEIGHT, NAVIGATION_TITLE_WIDTH, NAVIGATION_TITLE_HEIGHT)];
         [titleLabel setTextColor:[UIColor darkTextColor]];
@@ -273,22 +273,26 @@
 - (void)menuItemSelectedOnIndex:(NSInteger)index {
     UIView *newView = nil;
     NSString *title = nil;
+    [_rightButton removeFromSuperview];
+    [_rightButton removeTarget:self action:@selector(scanBarcode) forControlEvents:UIControlEventTouchUpInside];
     CGRect frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height);
     switch (index) {
         case 1:
-            if (_stockEntryView == nil) {
-                _stockEntryView = [[StockEntryView alloc] initWithFrame:frame];
-                _stockEntryView.rootViewNavController = self.navigationController;
-            }
-            newView = _stockEntryView;
-            title = @"库存盘点";
-            break;
-        case 2:
             if (_skuView == nil) {
                 _skuView = [[SKUView alloc] initWithFrame:frame withController:self];
             }
             newView = _skuView;
             title = @"SKU";
+            [self->navigationBar addSubview:_rightButton];
+            [_rightButton setImage:[UIImage imageNamed:@"barcodeScan.png"] forState:UIControlStateNormal];
+            [_rightButton addTarget:self action:@selector(scanBarcode) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        case 2:
+            if (_investigateEntryView == nil) {
+                _investigateEntryView = [[InvestigateEntryView alloc] initWithFrame:frame withController:self];
+            }
+            newView = _investigateEntryView;
+            title = @"每日一评";
             break;
         case 4:
             if (_settingHomeView == nil) {
@@ -320,6 +324,52 @@
     }
 }
 
+- (void)scanBarcode{
+    BarcodeScanViewController *barcodeScanVC = [[BarcodeScanViewController alloc] init];
+    
+    [self.navigationController pushViewController:barcodeScanVC animated:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SKUScaned:) name:KNOTIFICATION_SKUSCANED object:nil];
+    
+}
+
+- (void)SKUScaned:(NSNotification *)notification{
+    NSString *barcode = [notification.userInfo objectForKey:@"barcode"];
+    [self QuerySKUByBarcode:barcode];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNOTIFICATION_SKUSCANED object:nil];
+}
+
+- (void)QuerySKUByBarcode:(NSString *)barcode{
+    [SVProgressHUD showWithStatus:@"正在查询SKU"];
+    AVQuery *query = [SKU query];
+    [query whereKey:@"commodityCode" equalTo:barcode];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [SVProgressHUD dismiss];
+            if (objects.count > 0) {
+                SKU *sku = [objects objectAtIndex:0];
+                SKUSearchResultViewController *SSRVC = [[SKUSearchResultViewController alloc] initWithSKU:sku];
+                [self.navigationController pushViewController:SSRVC animated:NO];
+//                [skuNameLable setText:sku.skuName];
+//                [SVProgressHUD showWithStatus:@"正在获取SKU缩略图"];
+//                [sku.image getThumbnail:YES width:180 height:180 withBlock:^(UIImage *image, NSError *error) {
+//                    if (!error) {
+//                        [SVProgressHUD dismiss];
+//                        [skuImage setImage:image];
+//                    } else{
+//                        [SVProgressHUD showErrorWithStatus:@"缩略图获取失败" duration:2];
+//                    }
+//                }];
+            } else{
+                [SVProgressHUD showErrorWithStatus:@"该商品不在系统管理范围内" duration:2];
+            }
+        } else{
+            [SVProgressHUD showErrorWithStatus:@"网络故障，SKU查询失败" duration:2];
+        }
+    }];
+}
+
 #pragma mark SignInDelegate
 - (void)onLogin {
     LoginViewController *controller = [[LoginViewController alloc] init];
@@ -333,7 +383,7 @@
 
 #pragma mark CityListDelegate
 - (void)citySelected:(NSString *)cityName {
-    [_cityButton setTitle:cityName forState:UIControlStateNormal];
+    [_rightButton setTitle:cityName forState:UIControlStateNormal];
 }
 
 @end

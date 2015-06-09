@@ -10,7 +10,7 @@
 
 @implementation SKU
 
-@synthesize skuName, image, commodityCode, brand, packingSpecification;
+@dynamic skuName, image, commodityCode, brand, packingSpecification;
 
 + (NSString *)parseClassName {
     return @"SKU";

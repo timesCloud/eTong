@@ -10,7 +10,7 @@
 
 @implementation Purchases
 
-@synthesize sku, store, date, count, syncFromDeliveryRecord;
+@dynamic sku, store, date, count, stockCountAfterPurchase, stockCountBeforePurchase;
 
 +(NSString *)parseClassName{
     return @"Purchases";

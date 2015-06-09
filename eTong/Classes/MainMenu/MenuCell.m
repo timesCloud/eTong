@@ -43,7 +43,7 @@
     } else {
         _icon.image = _normalImage;
         [_label setFont:[UIFont systemFontOfSize:15]];
-        _label.textColor = [UIColor lightGrayColor];
+        _label.textColor = NORMAL_BACKGROUND_COLOR;
     }
 }
 

@@ -28,14 +28,12 @@
 		D808970E1AF45F7C001A4621 /* Verifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D80897071AF45F7C001A4621 /* Verifier.m */; };
 		D80897111AF45FCF001A4621 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80897101AF45FCF001A4621 /* RootViewController.m */; };
 		D808972E1AF45FFF001A4621 /* AVSubclassesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D80897161AF45FFF001A4621 /* AVSubclassesHelper.m */; };
-		D81A44C01AFE3B9C00AAB9B4 /* SalesVolumeOrigin.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44BF1AFE3B9C00AAB9B4 /* SalesVolumeOrigin.m */; };
 		D81A44C31AFE3BE900AAB9B4 /* SKU.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44C21AFE3BE900AAB9B4 /* SKU.m */; };
 		D81A44C61AFE3CCB00AAB9B4 /* Brand.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44C51AFE3CCB00AAB9B4 /* Brand.m */; };
 		D81A44C91AFE3F4000AAB9B4 /* PackingSpecification.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44C81AFE3F4000AAB9B4 /* PackingSpecification.m */; };
 		D81A44CC1AFF9BF600AAB9B4 /* TerminalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44CB1AFF9BF600AAB9B4 /* TerminalStore.m */; };
 		D81A44CF1AFF9D9700AAB9B4 /* MarketingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44CE1AFF9D9700AAB9B4 /* MarketingChannel.m */; };
 		D81A44D21B00EB7600AAB9B4 /* Stock.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44D11B00EB7600AAB9B4 /* Stock.m */; };
-		D81A44D51B00EF8200AAB9B4 /* SalesVolumeProcessed.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44D41B00EF8200AAB9B4 /* SalesVolumeProcessed.m */; };
 		D81A44D81B00F05B00AAB9B4 /* Purchases.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44D71B00F05B00AAB9B4 /* Purchases.m */; };
 		D81A44DB1B00F08600AAB9B4 /* Delivery.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44DA1B00F08600AAB9B4 /* Delivery.m */; };
 		D81A44E11B00F73900AAB9B4 /* StockEntryView.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A44E01B00F73900AAB9B4 /* StockEntryView.m */; };
@@ -45,7 +43,6 @@
 		D81A456E1B02407D00AAB9B4 /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D81A456C1B02407D00AAB9B4 /* pick_bg@2x.png */; };
 		D81A45711B0240AF00AAB9B4 /* BarcodeScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A45701B0240AF00AAB9B4 /* BarcodeScanViewController.m */; };
 		D81A45771B03293800AAB9B4 /* CustomDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A45761B03293800AAB9B4 /* CustomDatePickerView.m */; };
-		D81A457A1B0333E800AAB9B4 /* PackingStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A45791B0333E800AAB9B4 /* PackingStockTableViewCell.m */; };
 		D81A457E1B033C0100AAB9B4 /* SKUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A457D1B033C0100AAB9B4 /* SKUTableViewCell.m */; };
 		D81A45811B03438700AAB9B4 /* SKUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A45801B03438700AAB9B4 /* SKUView.m */; };
 		D8356F981AF5312D002C6638 /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8356F621AF5312D002C6638 /* citydict.plist */; };
@@ -179,6 +176,23 @@
 		D83570C81AFB379D002C6638 /* HDCLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D83570C71AFB379D002C6638 /* HDCLogo.jpg */; };
 		D83570CB1AFB9043002C6638 /* AccountInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83570CA1AFB9043002C6638 /* AccountInitViewController.m */; };
 		D83570CD1AFBB853002C6638 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D83570CC1AFBB853002C6638 /* Default-568h@2x.png */; };
+		D83A5AC01B0A33E200CE4832 /* barcodeScan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D83A5ABF1B0A33E200CE4832 /* barcodeScan@2x.png */; };
+		D83A5AC31B0A3BC600CE4832 /* SKUSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AC21B0A3BC500CE4832 /* SKUSearchResultViewController.m */; };
+		D83A5AC61B0E1FB700CE4832 /* PackingStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AC51B0E1FB700CE4832 /* PackingStockTableViewCell.m */; };
+		D83A5ACA1B10A2D100CE4832 /* InvestigateEveryday.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AC91B10A2D100CE4832 /* InvestigateEveryday.m */; };
+		D83A5ACD1B10A4C800CE4832 /* Promotion.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5ACC1B10A4C800CE4832 /* Promotion.m */; };
+		D83A5ADE1B10AC6900CE4832 /* UzysAssetPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D83A5ACF1B10AC6900CE4832 /* UzysAssetPickerController.bundle */; };
+		D83A5ADF1B10AC6900CE4832 /* UzysAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AD11B10AC6900CE4832 /* UzysAssetsPickerController.m */; };
+		D83A5AE01B10AC6900CE4832 /* UzysAssetsPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83A5AD21B10AC6900CE4832 /* UzysAssetsPickerController.xib */; };
+		D83A5AE11B10AC6900CE4832 /* UzysAssetsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AD51B10AC6900CE4832 /* UzysAssetsViewCell.m */; };
+		D83A5AE21B10AC6900CE4832 /* UzysGroupPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AD71B10AC6900CE4832 /* UzysGroupPickerView.m */; };
+		D83A5AE31B10AC6900CE4832 /* UzysGroupPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AD91B10AC6900CE4832 /* UzysGroupPickerViewController.m */; };
+		D83A5AE41B10AC6900CE4832 /* UzysGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5ADB1B10AC6900CE4832 /* UzysGroupViewCell.m */; };
+		D83A5AE51B10AC6900CE4832 /* UzysWrapperPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5ADD1B10AC6900CE4832 /* UzysWrapperPickerController.m */; };
+		D83A5AE81B10C95C00CE4832 /* InvestigateEntryView.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AE71B10C95C00CE4832 /* InvestigateEntryView.m */; };
+		D83A5AEB1B10D56000CE4832 /* CustomPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D83A5AEA1B10D56000CE4832 /* CustomPickerView.m */; };
+		D83A5AED1B122AF400CE4832 /* selectImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D83A5AEC1B122AF400CE4832 /* selectImage@2x.png */; };
+		D8EBA4451B26CBA7007CD6E9 /* TerminalStoreRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EBA4441B26CBA7007CD6E9 /* TerminalStoreRegisterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,8 +250,6 @@
 		D80897101AF45FCF001A4621 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		D80897151AF45FFF001A4621 /* AVSubclassesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVSubclassesHelper.h; sourceTree = "<group>"; };
 		D80897161AF45FFF001A4621 /* AVSubclassesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVSubclassesHelper.m; sourceTree = "<group>"; };
-		D81A44BE1AFE3B9C00AAB9B4 /* SalesVolumeOrigin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesVolumeOrigin.h; sourceTree = "<group>"; };
-		D81A44BF1AFE3B9C00AAB9B4 /* SalesVolumeOrigin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesVolumeOrigin.m; sourceTree = "<group>"; };
 		D81A44C11AFE3BE900AAB9B4 /* SKU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKU.h; sourceTree = "<group>"; };
 		D81A44C21AFE3BE900AAB9B4 /* SKU.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKU.m; sourceTree = "<group>"; };
 		D81A44C41AFE3CCB00AAB9B4 /* Brand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brand.h; sourceTree = "<group>"; };
@@ -250,8 +262,6 @@
 		D81A44CE1AFF9D9700AAB9B4 /* MarketingChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketingChannel.m; sourceTree = "<group>"; };
 		D81A44D01B00EB7600AAB9B4 /* Stock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stock.h; sourceTree = "<group>"; };
 		D81A44D11B00EB7600AAB9B4 /* Stock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stock.m; sourceTree = "<group>"; };
-		D81A44D31B00EF8200AAB9B4 /* SalesVolumeProcessed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesVolumeProcessed.h; sourceTree = "<group>"; };
-		D81A44D41B00EF8200AAB9B4 /* SalesVolumeProcessed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesVolumeProcessed.m; sourceTree = "<group>"; };
 		D81A44D61B00F05B00AAB9B4 /* Purchases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Purchases.h; sourceTree = "<group>"; };
 		D81A44D71B00F05B00AAB9B4 /* Purchases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Purchases.m; sourceTree = "<group>"; };
 		D81A44D91B00F08600AAB9B4 /* Delivery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delivery.h; sourceTree = "<group>"; };
@@ -266,8 +276,6 @@
 		D81A45701B0240AF00AAB9B4 /* BarcodeScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarcodeScanViewController.m; sourceTree = "<group>"; };
 		D81A45751B03293800AAB9B4 /* CustomDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDatePickerView.h; sourceTree = "<group>"; };
 		D81A45761B03293800AAB9B4 /* CustomDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDatePickerView.m; sourceTree = "<group>"; };
-		D81A45781B0333E800AAB9B4 /* PackingStockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackingStockTableViewCell.h; sourceTree = "<group>"; };
-		D81A45791B0333E800AAB9B4 /* PackingStockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackingStockTableViewCell.m; sourceTree = "<group>"; };
 		D81A457C1B033C0100AAB9B4 /* SKUTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUTableViewCell.h; sourceTree = "<group>"; };
 		D81A457D1B033C0100AAB9B4 /* SKUTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUTableViewCell.m; sourceTree = "<group>"; };
 		D81A457F1B03438700AAB9B4 /* SKUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUView.h; sourceTree = "<group>"; };
@@ -443,6 +451,37 @@
 		D83570C91AFB9042002C6638 /* AccountInitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInitViewController.h; sourceTree = "<group>"; };
 		D83570CA1AFB9043002C6638 /* AccountInitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInitViewController.m; sourceTree = "<group>"; };
 		D83570CC1AFBB853002C6638 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D83A5ABF1B0A33E200CE4832 /* barcodeScan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barcodeScan@2x.png"; sourceTree = "<group>"; };
+		D83A5AC11B0A3BC500CE4832 /* SKUSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUSearchResultViewController.h; sourceTree = "<group>"; };
+		D83A5AC21B0A3BC500CE4832 /* SKUSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUSearchResultViewController.m; sourceTree = "<group>"; };
+		D83A5AC41B0E1FB700CE4832 /* PackingStockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackingStockTableViewCell.h; sourceTree = "<group>"; };
+		D83A5AC51B0E1FB700CE4832 /* PackingStockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackingStockTableViewCell.m; sourceTree = "<group>"; };
+		D83A5AC81B10A2D100CE4832 /* InvestigateEveryday.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvestigateEveryday.h; sourceTree = "<group>"; };
+		D83A5AC91B10A2D100CE4832 /* InvestigateEveryday.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvestigateEveryday.m; sourceTree = "<group>"; };
+		D83A5ACB1B10A4C800CE4832 /* Promotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Promotion.h; sourceTree = "<group>"; };
+		D83A5ACC1B10A4C800CE4832 /* Promotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Promotion.m; sourceTree = "<group>"; };
+		D83A5ACF1B10AC6900CE4832 /* UzysAssetPickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UzysAssetPickerController.bundle; sourceTree = "<group>"; };
+		D83A5AD01B10AC6900CE4832 /* UzysAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsPickerController.h; sourceTree = "<group>"; };
+		D83A5AD11B10AC6900CE4832 /* UzysAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysAssetsPickerController.m; sourceTree = "<group>"; };
+		D83A5AD21B10AC6900CE4832 /* UzysAssetsPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UzysAssetsPickerController.xib; sourceTree = "<group>"; };
+		D83A5AD31B10AC6900CE4832 /* UzysAssetsPickerController_Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsPickerController_Configuration.h; sourceTree = "<group>"; };
+		D83A5AD41B10AC6900CE4832 /* UzysAssetsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsViewCell.h; sourceTree = "<group>"; };
+		D83A5AD51B10AC6900CE4832 /* UzysAssetsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysAssetsViewCell.m; sourceTree = "<group>"; };
+		D83A5AD61B10AC6900CE4832 /* UzysGroupPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupPickerView.h; sourceTree = "<group>"; };
+		D83A5AD71B10AC6900CE4832 /* UzysGroupPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupPickerView.m; sourceTree = "<group>"; };
+		D83A5AD81B10AC6900CE4832 /* UzysGroupPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupPickerViewController.h; sourceTree = "<group>"; };
+		D83A5AD91B10AC6900CE4832 /* UzysGroupPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupPickerViewController.m; sourceTree = "<group>"; };
+		D83A5ADA1B10AC6900CE4832 /* UzysGroupViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupViewCell.h; sourceTree = "<group>"; };
+		D83A5ADB1B10AC6900CE4832 /* UzysGroupViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupViewCell.m; sourceTree = "<group>"; };
+		D83A5ADC1B10AC6900CE4832 /* UzysWrapperPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysWrapperPickerController.h; sourceTree = "<group>"; };
+		D83A5ADD1B10AC6900CE4832 /* UzysWrapperPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysWrapperPickerController.m; sourceTree = "<group>"; };
+		D83A5AE61B10C95C00CE4832 /* InvestigateEntryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvestigateEntryView.h; sourceTree = "<group>"; };
+		D83A5AE71B10C95C00CE4832 /* InvestigateEntryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvestigateEntryView.m; sourceTree = "<group>"; };
+		D83A5AE91B10D56000CE4832 /* CustomPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPickerView.h; sourceTree = "<group>"; };
+		D83A5AEA1B10D56000CE4832 /* CustomPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPickerView.m; sourceTree = "<group>"; };
+		D83A5AEC1B122AF400CE4832 /* selectImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "selectImage@2x.png"; sourceTree = "<group>"; };
+		D8EBA4431B26CBA7007CD6E9 /* TerminalStoreRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalStoreRegisterViewController.h; sourceTree = "<group>"; };
+		D8EBA4441B26CBA7007CD6E9 /* TerminalStoreRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalStoreRegisterViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,6 +622,8 @@
 			children = (
 				D81A45751B03293800AAB9B4 /* CustomDatePickerView.h */,
 				D81A45761B03293800AAB9B4 /* CustomDatePickerView.m */,
+				D83A5AE91B10D56000CE4832 /* CustomPickerView.h */,
+				D83A5AEA1B10D56000CE4832 /* CustomPickerView.m */,
 				D80896F81AF45F7C001A4621 /* CustomLocationManager.h */,
 				D80896F91AF45F7C001A4621 /* CustomLocationManager.m */,
 				D80896FA1AF45F7C001A4621 /* DateTimeHelper.h */,
@@ -608,8 +649,6 @@
 			children = (
 				D80897151AF45FFF001A4621 /* AVSubclassesHelper.h */,
 				D80897161AF45FFF001A4621 /* AVSubclassesHelper.m */,
-				D81A44BE1AFE3B9C00AAB9B4 /* SalesVolumeOrigin.h */,
-				D81A44BF1AFE3B9C00AAB9B4 /* SalesVolumeOrigin.m */,
 				D81A44C11AFE3BE900AAB9B4 /* SKU.h */,
 				D81A44C21AFE3BE900AAB9B4 /* SKU.m */,
 				D81A44C41AFE3CCB00AAB9B4 /* Brand.h */,
@@ -622,12 +661,14 @@
 				D81A44CE1AFF9D9700AAB9B4 /* MarketingChannel.m */,
 				D81A44D01B00EB7600AAB9B4 /* Stock.h */,
 				D81A44D11B00EB7600AAB9B4 /* Stock.m */,
-				D81A44D31B00EF8200AAB9B4 /* SalesVolumeProcessed.h */,
-				D81A44D41B00EF8200AAB9B4 /* SalesVolumeProcessed.m */,
 				D81A44D61B00F05B00AAB9B4 /* Purchases.h */,
 				D81A44D71B00F05B00AAB9B4 /* Purchases.m */,
 				D81A44D91B00F08600AAB9B4 /* Delivery.h */,
 				D81A44DA1B00F08600AAB9B4 /* Delivery.m */,
+				D83A5AC81B10A2D100CE4832 /* InvestigateEveryday.h */,
+				D83A5AC91B10A2D100CE4832 /* InvestigateEveryday.m */,
+				D83A5ACB1B10A4C800CE4832 /* Promotion.h */,
+				D83A5ACC1B10A4C800CE4832 /* Promotion.m */,
 			);
 			path = AVOSSubclasses;
 			sourceTree = "<group>";
@@ -644,6 +685,8 @@
 		D81A44DD1B00F59A00AAB9B4 /* TerminalStore */ = {
 			isa = PBXGroup;
 			children = (
+				D8EBA4421B26CB7B007CD6E9 /* TerminalStoreRegister */,
+				D83A5AC71B1075FC00CE4832 /* InvestigateEveryday */,
 				D81A457B1B033BD300AAB9B4 /* SKUList */,
 				D81A44DE1B00F6F100AAB9B4 /* DataEntry */,
 			);
@@ -655,6 +698,8 @@
 			children = (
 				D81A44DF1B00F73900AAB9B4 /* StockEntryView.h */,
 				D81A44E01B00F73900AAB9B4 /* StockEntryView.m */,
+				D83A5AC41B0E1FB700CE4832 /* PackingStockTableViewCell.h */,
+				D83A5AC51B0E1FB700CE4832 /* PackingStockTableViewCell.m */,
 			);
 			path = DataEntry;
 			sourceTree = "<group>";
@@ -673,8 +718,6 @@
 			children = (
 				D81A456F1B0240AF00AAB9B4 /* BarcodeScanViewController.h */,
 				D81A45701B0240AF00AAB9B4 /* BarcodeScanViewController.m */,
-				D81A45781B0333E800AAB9B4 /* PackingStockTableViewCell.h */,
-				D81A45791B0333E800AAB9B4 /* PackingStockTableViewCell.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -686,6 +729,8 @@
 				D81A457D1B033C0100AAB9B4 /* SKUTableViewCell.m */,
 				D81A457F1B03438700AAB9B4 /* SKUView.h */,
 				D81A45801B03438700AAB9B4 /* SKUView.m */,
+				D83A5AC11B0A3BC500CE4832 /* SKUSearchResultViewController.h */,
+				D83A5AC21B0A3BC500CE4832 /* SKUSearchResultViewController.m */,
 			);
 			path = SKUList;
 			sourceTree = "<group>";
@@ -765,6 +810,7 @@
 		D8356FB11AF531A8002C6638 /* 3rdClasses */ = {
 			isa = PBXGroup;
 			children = (
+				D83A5ACE1B10AC6900CE4832 /* UzysPhotoLibrary */,
 				D83570111AF533BF002C6638 /* VWWWaterView */,
 				D8356FCE1AF53363002C6638 /* CustomTableView */,
 				D8356FD41AF53363002C6638 /* DOPDropDownMenu */,
@@ -957,6 +1003,7 @@
 		D835701E1AF7147C002C6638 /* bgs */ = {
 			isa = PBXGroup;
 			children = (
+				D83A5AEC1B122AF400CE4832 /* selectImage@2x.png */,
 				D81A456B1B02407D00AAB9B4 /* line@2x.png */,
 				D81A456C1B02407D00AAB9B4 /* pick_bg@2x.png */,
 				D83570CC1AFBB853002C6638 /* Default-568h@2x.png */,
@@ -980,6 +1027,7 @@
 		D835702B1AF7147C002C6638 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				D83A5ABF1B0A33E200CE4832 /* barcodeScan@2x.png */,
 				D83570C31AFB068A002C6638 /* link_highlight@2x.png */,
 				D83570C41AFB068A002C6638 /* link_normal@2x.png */,
 				D83570BF1AFB05A5002C6638 /* mail_highlight@2x.png */,
@@ -1063,6 +1111,46 @@
 				D83570641AF7147C002C6638 /* sorry@2x.jpg */,
 			);
 			path = testImages;
+			sourceTree = "<group>";
+		};
+		D83A5AC71B1075FC00CE4832 /* InvestigateEveryday */ = {
+			isa = PBXGroup;
+			children = (
+				D83A5AE61B10C95C00CE4832 /* InvestigateEntryView.h */,
+				D83A5AE71B10C95C00CE4832 /* InvestigateEntryView.m */,
+			);
+			path = InvestigateEveryday;
+			sourceTree = "<group>";
+		};
+		D83A5ACE1B10AC6900CE4832 /* UzysPhotoLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				D83A5ACF1B10AC6900CE4832 /* UzysAssetPickerController.bundle */,
+				D83A5AD01B10AC6900CE4832 /* UzysAssetsPickerController.h */,
+				D83A5AD11B10AC6900CE4832 /* UzysAssetsPickerController.m */,
+				D83A5AD21B10AC6900CE4832 /* UzysAssetsPickerController.xib */,
+				D83A5AD31B10AC6900CE4832 /* UzysAssetsPickerController_Configuration.h */,
+				D83A5AD41B10AC6900CE4832 /* UzysAssetsViewCell.h */,
+				D83A5AD51B10AC6900CE4832 /* UzysAssetsViewCell.m */,
+				D83A5AD61B10AC6900CE4832 /* UzysGroupPickerView.h */,
+				D83A5AD71B10AC6900CE4832 /* UzysGroupPickerView.m */,
+				D83A5AD81B10AC6900CE4832 /* UzysGroupPickerViewController.h */,
+				D83A5AD91B10AC6900CE4832 /* UzysGroupPickerViewController.m */,
+				D83A5ADA1B10AC6900CE4832 /* UzysGroupViewCell.h */,
+				D83A5ADB1B10AC6900CE4832 /* UzysGroupViewCell.m */,
+				D83A5ADC1B10AC6900CE4832 /* UzysWrapperPickerController.h */,
+				D83A5ADD1B10AC6900CE4832 /* UzysWrapperPickerController.m */,
+			);
+			path = UzysPhotoLibrary;
+			sourceTree = "<group>";
+		};
+		D8EBA4421B26CB7B007CD6E9 /* TerminalStoreRegister */ = {
+			isa = PBXGroup;
+			children = (
+				D8EBA4431B26CBA7007CD6E9 /* TerminalStoreRegisterViewController.h */,
+				D8EBA4441B26CBA7007CD6E9 /* TerminalStoreRegisterViewController.m */,
+			);
+			path = TerminalStoreRegister;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1182,6 +1270,7 @@
 				D835708C1AF7147C002C6638 /* location_highlight@2x.png in Resources */,
 				D83570711AF7147C002C6638 /* followbg@2x.png in Resources */,
 				D83570A71AF7147C002C6638 /* CheckMarkWhite.png in Resources */,
+				D83A5AE01B10AC6900CE4832 /* UzysAssetsPickerController.xib in Resources */,
 				D835708F1AF7147C002C6638 /* male@2x.png in Resources */,
 				D83570A51AF7147C002C6638 /* Default-568h@2x.png in Resources */,
 				D83570951AF7147C002C6638 /* right@2x.png in Resources */,
@@ -1226,6 +1315,7 @@
 				D81A44ED1B01F79F00AAB9B4 /* barcode_normal@2x.png in Resources */,
 				D83570BE1AFB035E002C6638 /* mall_normal@2x.png in Resources */,
 				D835706F1AF7147C002C6638 /* bg_main@2x.png in Resources */,
+				D83A5AC01B0A33E200CE4832 /* barcodeScan@2x.png in Resources */,
 				D83570751AF7147C002C6638 /* subTabbar_highLight@2x.png in Resources */,
 				D83570961AF7147C002C6638 /* search@2x.png in Resources */,
 				D835707F1AF7147C002C6638 /* competition_normal@2x.png in Resources */,
@@ -1233,10 +1323,12 @@
 				D835708B1AF7147C002C6638 /* location_green@2x.png in Resources */,
 				D835709B1AF7147C002C6638 /* shoppingBag@2x.png in Resources */,
 				D81A456E1B02407D00AAB9B4 /* pick_bg@2x.png in Resources */,
+				D83A5ADE1B10AC6900CE4832 /* UzysAssetPickerController.bundle in Resources */,
 				D80896CC1AF45956001A4621 /* Images.xcassets in Resources */,
 				D83570781AF7147C002C6638 /* back_normal@2x.png in Resources */,
 				D83570B21AF9F831002C6638 /* stat_normal@2x.png in Resources */,
 				D83570991AF7147C002C6638 /* setting_normal@2x.png in Resources */,
+				D83A5AED1B122AF400CE4832 /* selectImage@2x.png in Resources */,
 				D83570671AF7147C002C6638 /* icon-40@2x.png in Resources */,
 				D83570C11AFB05A5002C6638 /* mail_highlight@2x.png in Resources */,
 				D83570AD1AF7147C002C6638 /* mzwyyc.jpg in Resources */,
@@ -1297,6 +1389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8356FAC1AF5312D002C6638 /* ResetPasswordViewController.m in Sources */,
+				D83A5AE51B10AC6900CE4832 /* UzysWrapperPickerController.m in Sources */,
 				D8356FB01AF5312D002C6638 /* UserHomeViewController.m in Sources */,
 				D8356FAD1AF5312D002C6638 /* LoginViewController.m in Sources */,
 				D81A457E1B033C0100AAB9B4 /* SKUTableViewCell.m in Sources */,
@@ -1304,13 +1397,15 @@
 				D81A44D81B00F05B00AAB9B4 /* Purchases.m in Sources */,
 				D83570CB1AFB9043002C6638 /* AccountInitViewController.m in Sources */,
 				D8356FAB1AF5312D002C6638 /* ModifyPasswordViewController.m in Sources */,
-				D81A44C01AFE3B9C00AAB9B4 /* SalesVolumeOrigin.m in Sources */,
 				D80896F11AF45F5D001A4621 /* LLBlurSidebar.m in Sources */,
 				D80897111AF45FCF001A4621 /* RootViewController.m in Sources */,
-				D81A457A1B0333E800AAB9B4 /* PackingStockTableViewCell.m in Sources */,
 				D83570061AF53363002C6638 /* MenuHrizontal.m in Sources */,
+				D83A5ADF1B10AC6900CE4832 /* UzysAssetsPickerController.m in Sources */,
 				D8356F9E1AF5312D002C6638 /* IndustrySettingViewController.m in Sources */,
+				D83A5ACA1B10A2D100CE4832 /* InvestigateEveryday.m in Sources */,
 				D81A45771B03293800AAB9B4 /* CustomDatePickerView.m in Sources */,
+				D83A5AEB1B10D56000CE4832 /* CustomPickerView.m in Sources */,
+				D83A5AC31B0A3BC600CE4832 /* SKUSearchResultViewController.m in Sources */,
 				D835700D1AF53363002C6638 /* SGFocusImageItem.m in Sources */,
 				D8356F991AF5312D002C6638 /* CityListViewController.m in Sources */,
 				D83570101AF53363002C6638 /* VPImageCropperViewController.m in Sources */,
@@ -1318,6 +1413,7 @@
 				D8356FBF1AF531E4002C6638 /* SettingHomeView.m in Sources */,
 				D808970D1AF45F7C001A4621 /* UIImage+ImageEffects.m in Sources */,
 				D83570001AF53363002C6638 /* DOPDropDownMenu.m in Sources */,
+				D83A5AE41B10AC6900CE4832 /* UzysGroupViewCell.m in Sources */,
 				D8356F9D1AF5312D002C6638 /* FavoriteSportSettingViewController.m in Sources */,
 				D835700A1AF53363002C6638 /* CircleView.m in Sources */,
 				D8356FFD1AF53363002C6638 /* CustomTableView.m in Sources */,
@@ -1341,21 +1437,26 @@
 				D81A45811B03438700AAB9B4 /* SKUView.m in Sources */,
 				D81A44D21B00EB7600AAB9B4 /* Stock.m in Sources */,
 				D81A44CF1AFF9D9700AAB9B4 /* MarketingChannel.m in Sources */,
-				D81A44D51B00EF8200AAB9B4 /* SalesVolumeProcessed.m in Sources */,
+				D83A5AC61B0E1FB700CE4832 /* PackingStockTableViewCell.m in Sources */,
 				D808970C1AF45F7C001A4621 /* TelHelper.m in Sources */,
 				D8356FFE1AF53363002C6638 /* LoadMoreCell.m in Sources */,
+				D83A5AE21B10AC6900CE4832 /* UzysGroupPickerView.m in Sources */,
 				D83570031AF53363002C6638 /* CustomAnnotation.m in Sources */,
 				D80896C41AF45956001A4621 /* AppDelegate.m in Sources */,
 				D808970E1AF45F7C001A4621 /* Verifier.m in Sources */,
 				D81A44E11B00F73900AAB9B4 /* StockEntryView.m in Sources */,
+				D83A5ACD1B10A4C800CE4832 /* Promotion.m in Sources */,
 				D8356FAE1AF5312D002C6638 /* SignUpViewController.m in Sources */,
+				D83A5AE11B10AC6900CE4832 /* UzysAssetsViewCell.m in Sources */,
 				D8356FAF1AF5312D002C6638 /* SMSVerifyViewController.m in Sources */,
 				D83570051AF53363002C6638 /* PreNavigationViewController.m in Sources */,
 				D83570021AF53363002C6638 /* MRImgShowView.m in Sources */,
 				D81A45711B0240AF00AAB9B4 /* BarcodeScanViewController.m in Sources */,
 				D81A44C61AFE3CCB00AAB9B4 /* Brand.m in Sources */,
 				D8356FBE1AF531E4002C6638 /* AboutUsViewController.m in Sources */,
+				D83A5AE81B10C95C00CE4832 /* InvestigateEntryView.m in Sources */,
 				D8356FC91AF532F8002C6638 /* UIView+XD.m in Sources */,
+				D83A5AE31B10AC6900CE4832 /* UzysGroupPickerViewController.m in Sources */,
 				D80897091AF45F7C001A4621 /* DateTimeHelper.m in Sources */,
 				D8356FCD1AF53316002C6638 /* NormalNavigationBar.m in Sources */,
 				D808970B1AF45F7C001A4621 /* ShareInstances.m in Sources */,
@@ -1364,6 +1465,7 @@
 				D8356FA11AF5312D002C6638 /* SexSelectionViewController.m in Sources */,
 				D8356FAA1AF5312D002C6638 /* InputPhoneNoViewController.m in Sources */,
 				D80896C11AF45956001A4621 /* main.m in Sources */,
+				D8EBA4451B26CBA7007CD6E9 /* TerminalStoreRegisterViewController.m in Sources */,
 				D8356FC81AF532F8002C6638 /* InputText.m in Sources */,
 				D8356FB71AF531A8002C6638 /* EAIntroPage.m in Sources */,
 				D8356FB81AF531A8002C6638 /* EAIntroView.m in Sources */,

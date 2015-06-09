@@ -13,6 +13,7 @@
 #import "SKU.h"
 #import "SVProgressHUD.h"
 #import "SKUTableViewCell.h"
+#import "SKUSearchResultViewController.h"
 //#import "DOPDropDownMenu.h"
 
 @interface SKUView()<UITableViewDelegate, UITableViewDataSource>
@@ -23,6 +24,7 @@
     //DOPDropDownMenu *dropDownMenu;
     UITableView *skuTableView;
     NSMutableArray *SKUs;
+    NSInteger selectedRow;
 }
 
 - (id)initWithFrame:(CGRect)frame withController:(UIViewController *)controller {
@@ -36,9 +38,12 @@
 }
 
 -(void)initialize{
-    skuTableView = [[UITableView alloc] initWithFrame:CGRectMake(MARGIN_NARROW, MARGIN_NARROW, self.width - MARGIN_NARROW * 2, self.height - MARGIN_NARROW * 2)];
+    skuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+    skuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [skuTableView setBackgroundColor:NORMAL_BACKGROUND_COLOR];
     skuTableView.delegate = self;
     skuTableView.dataSource = self;
+    selectedRow = -1;
     [self addSubview:skuTableView];
     [self refreshData];
 }
@@ -71,7 +76,7 @@
 
 #pragma marks UITableViewDelegate and UITableViewDataSource
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 110;
+    return kSKUViewCellUnhighlightHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -82,12 +87,24 @@
     }
     
     SKU *sku = [SKUs objectAtIndex:indexPath.row];
-    [cell setSKU:sku WithHighlighted:NO];
+    [cell setSKU:sku];
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return SKUs.count;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (indexPath.row != selectedRow) {
+//        NSIndexPath *lastSelectedIndexPath = [NSIndexPath indexPathForRow:selectedRow inSection:0];
+//        selectedRow = indexPath.row;
+//        [tableView reloadRowsAtIndexPaths:@[lastSelectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    }
+    SKU *sku = [SKUs objectAtIndex:indexPath.row];
+    SKUSearchResultViewController *ssrVC = [[SKUSearchResultViewController alloc] initWithSKU:sku];
+    [_homeViewController.navigationController pushViewController:ssrVC animated:YES];
 }
 
 @end

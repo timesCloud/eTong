@@ -83,7 +83,7 @@
 //        [timer invalidate];
 //    }];
     [timer invalidate];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)viewWillAppear:(BOOL)animated
 {

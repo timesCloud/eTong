@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StockEntryView : UIView
+@class SKU;
 
-@property (nonatomic, weak) UINavigationController *rootViewNavController;
+@interface StockEntryViewController : UIViewController
+
+- (instancetype)initWithSku:(SKU *)sku mode:(NSInteger)mode;
 
 @end

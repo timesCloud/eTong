@@ -10,7 +10,7 @@
 
 @implementation Delivery
 
-@synthesize sku, distributor, store, date, count, isSynced;
+@dynamic sku, distributor, store, date, count, isSynced;
 
 +(NSString *)parseClassName{
     return @"Delivery";

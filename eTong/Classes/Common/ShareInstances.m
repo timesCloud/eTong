@@ -196,6 +196,27 @@ static TerminalStore *currentTerminalStore;
     return goImageView;
 }
 
++(UIView *)addNormalItemViewOnView:(UIView *)parent withY:(CGFloat)y withTitle:(NSString *)title canTouchUpInside:(BOOL)canTouchUpInside sender:(id)sender action:(SEL)action{
+    UILabel *titleLabel = [ShareInstances addSubTitleLabel:@"title" withFrame:CGRectMake(MARGIN_NARROW, y, parent.width - MARGIN_NARROW * 2, TEXTSIZE_SUBTITLE) withSuperView:parent];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, titleLabel.bottom + MARGIN_NARROW, parent.width, 44)];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [parent addSubview:view];
+    [ShareInstances addBottomBorderOnView:view];
+    if (canTouchUpInside) {
+        [ShareInstances addGoIndicateOnView:view];
+        UITapGestureRecognizer *brandViewTapGR = [[UITapGestureRecognizer alloc] initWithTarget:sender action:action];
+        [view addGestureRecognizer:brandViewTapGR];
+    }
+    
+    return view;
+}
+
++(UILabel *)addModifiableLabelOnView:(UIView *)parent{
+    UILabel *label = [ShareInstances addLabel:@"" withFrame:CGRectMake(MARGIN_WIDE, (parent.height - TEXTSIZE_BIG) / 2, parent.width - MARGIN_WIDE * 2 - 44, TEXTSIZE_BIG) withSuperView:parent withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_BIG];
+    
+    return label;
+}
+
 +(void)setCurrentTerminalStore{
     AVQuery *query = [TerminalStore query];
     AVUser *user = [AVUser currentUser];

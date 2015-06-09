@@ -22,5 +22,6 @@
 @property (nonatomic, strong) MarketingChannel *channel;
 @property (nonatomic, strong) AVFile *shopFrontPhoto;
 @property (nonatomic, strong) AVRelation *sku;
+@property (nonatomic, strong) AVRelation *brand;
 
 @end

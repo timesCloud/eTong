@@ -10,7 +10,7 @@
 
 @implementation Stock
 
-@synthesize sku, store, date, stock, salesRecord, purchasesRecord;
+@dynamic sku, store, date, stock, updateFrom;
 
 +(NSString *)parseClassName{
     return @"Stock";

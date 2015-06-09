@@ -10,67 +10,78 @@
 #import "UIView+XD.h"
 #import "Defines.h"
 #import "ShareInstances.h"
-#import "BarcodeScanViewController.h"
 #import "SKU.h"
+#import "Stock.h"
+#import "Purchases.h"
 #import "SVProgressHUD.h"
 #import "CustomDatePickerView.h"
+#import "NormalNavigationBar.h"
+#import "PackingStockTableViewCell.h"
 
-@interface StockEntryView()<CustomDatePickerViewDelegate>
+@interface StockEntryViewController()<CustomDatePickerViewDelegate, NormalNavigationDelegate, UITableViewDataSource, UITableViewDelegate, PackingStockTableViewCellDelegate>
+
+@property (nonatomic, strong) NormalNavigationBar *navigationBar;
 
 @end
 
-@implementation StockEntryView{
+@implementation StockEntryViewController{
     UIImageView *skuImage;
     UILabel *skuNameLable;
     UILabel *hintLabel;
     UILabel *dtLabel;
+    UITableView *packingTabelView;
     
     NSDate *selectedDate;
+    SKU *curSKU;
+    NSInteger curMode;
+    NSArray *packings;
+    NSMutableArray *stockArray;
+    NSMutableArray *purchaseArray;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
+- (instancetype)initWithSku:(SKU *)sku mode:(NSInteger)mode{
+    self = [super init];
     
-    [self initialize];
+    curSKU = sku;
+    curMode = mode;
     
     return self;
 }
 
-- (void)initialize{
-    [self setBackgroundColor:NORMAL_BACKGROUND_COLOR];
-    //SKU
-    UILabel *skuTitle = [ShareInstances addSubTitleLabel:@"sku" withFrame:CGRectMake(MARGIN_NARROW, MARGIN_NARROW, self.width, TEXTSIZE_SUBTITLE) withSuperView:self];
+- (void)viewDidLoad{
+    [super viewDidLoad];
     
-    UIView *skuView = [[UIView alloc] initWithFrame:CGRectMake(0, skuTitle.bottom + MARGIN_NARROW, self.width, 100)];
+    self.navigationBar = [[NormalNavigationBar alloc] initWithTitle:@"SKU详情"];
+    self.navigationBar.delegate = self;
+    [self.view addSubview:self.navigationBar];
+    
+    [self.view setBackgroundColor:NORMAL_BACKGROUND_COLOR];
+    //SKU
+    UILabel *skuTitle = [ShareInstances addSubTitleLabel:@"sku" withFrame:CGRectMake(MARGIN_NARROW, self.navigationBar.bottom + MARGIN_NARROW, self.view.width, TEXTSIZE_SUBTITLE) withSuperView:self.view];
+    
+    UIView *skuView = [[UIView alloc] initWithFrame:CGRectMake(0, skuTitle.bottom + MARGIN_NARROW, self.view.width, 100)];
     [ShareInstances addTopBottomBorderOnView:skuView];
     [skuView setBackgroundColor:[UIColor whiteColor]];
-    [self addSubview:skuView];
+    [self.view addSubview:skuView];
     
     skuImage = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN_NARROW, MARGIN_NARROW, skuView.height - MARGIN_NARROW * 2, skuView.height - MARGIN_NARROW * 2)];
     [skuView addSubview:skuImage];
+    [curSKU.image getThumbnail:YES width:180 height:180 withBlock:^(UIImage *image, NSError *error) {
+        if (!error) {
+            [skuImage setImage:image];
+        }
+    }];
     
-    skuNameLable = [ShareInstances addLabel:@"" withFrame:CGRectMake(skuImage.right + MARGIN_NARROW, 20, self.width - skuImage.right * 2 - MARGIN_NARROW, TEXTSIZE_TITLE) withSuperView:skuView withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_TITLE];
-    
-    hintLabel = [ShareInstances addLabel:@"点击右侧按钮扫描条码，获取SKU" withFrame:CGRectMake(skuImage.x + MARGIN_NARROW, (skuView.height - TEXTSIZE_TITLE) / 2, self.width - skuImage.right - MARGIN_NARROW, TEXTSIZE_TITLE) withSuperView:skuView withTextColor:LINK_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_TITLE];
-    
-    UIView *verticalSplitter = [[UIView alloc] initWithFrame:CGRectMake(skuNameLable.right + MARGIN_NARROW, MARGIN_NARROW, 1, skuView.height - MARGIN_NARROW * 2)];
-    [verticalSplitter setBackgroundColor:SPLITTER_COLOR];
-    [skuView addSubview:verticalSplitter];
-    
-    UIButton *scanButton = [[UIButton alloc] initWithFrame:CGRectMake(skuView.width - 100 + MARGIN_NARROW * 2, MARGIN_NARROW, 100 - MARGIN_NARROW * 2, 100 - MARGIN_NARROW * 2)];
-    [scanButton setImage:[UIImage imageNamed:@"barcode_normal.png"] forState:UIControlStateNormal];
-    [scanButton setImage:[UIImage imageNamed:@"barcode_highlight.png"] forState:UIControlStateHighlighted];
-    [scanButton setContentMode:UIViewContentModeCenter];
-    [scanButton addTarget:self action:@selector(scanBarcode) forControlEvents:UIControlEventTouchUpInside];
-    [skuView addSubview:scanButton];
+    skuNameLable = [ShareInstances addLabel:curSKU.skuName withFrame:CGRectMake(skuImage.right + MARGIN_NARROW, 20, self.view.width - skuImage.right * 2 - MARGIN_NARROW, TEXTSIZE_BIG) withSuperView:skuView withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_BIG];
     
     //时间
-    UILabel *dtTitle = [ShareInstances addSubTitleLabel:@"库存盘点日期" withFrame:CGRectMake(MARGIN_NARROW, skuView.bottom + MARGIN_NARROW, self.width, TEXTSIZE_SUBTITLE) withSuperView:self];
+    UILabel *dtTitle = [ShareInstances addSubTitleLabel:@"库存盘点日期" withFrame:CGRectMake(MARGIN_NARROW, skuView.bottom + MARGIN_NARROW, self.view.width, TEXTSIZE_SUBTITLE) withSuperView:self.view];
     
-    UIView *dtView = [[UIView alloc] initWithFrame:CGRectMake(0, dtTitle.bottom + MARGIN_NARROW, self.width, 44)];
+    UIView *dtView = [[UIView alloc] initWithFrame:CGRectMake(0, dtTitle.bottom + MARGIN_NARROW, self.view.width, 44)];
     [dtView setBackgroundColor:[UIColor whiteColor]];
     [ShareInstances addGoIndicateOnView:dtView];
-    [self addSubview:dtView];
+    [ShareInstances addTopBottomBorderOnView:dtView];
+    [self.view addSubview:dtView];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYY-MM-dd"];
@@ -81,64 +92,35 @@
     [dtView addGestureRecognizer:dtTapGR];
     
     //库存量
-    UILabel *countTitle = [ShareInstances addSubTitleLabel:@"库存数量" withFrame:CGRectMake(MARGIN_NARROW, dtView.bottom + MARGIN_NARROW, self.width, TEXTSIZE_SUBTITLE) withSuperView:self];
+    UILabel *countTitle = [ShareInstances addSubTitleLabel:@"库存数量" withFrame:CGRectMake(MARGIN_NARROW, dtView.bottom + MARGIN_NARROW, self.view.width, TEXTSIZE_SUBTITLE) withSuperView:self.view];
     
-    UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(0, countTitle.bottom, self.width, 100)];
-    [ShareInstances addTopBottomBorderOnView:countView];
-    [countView setBackgroundColor:[UIColor whiteColor]];
-    [self addSubview:countView];
+    UIView *tableBgView = [[UIView alloc] initWithFrame:CGRectMake(0, countTitle.bottom + MARGIN_NARROW, self.view.width, self.view.height - countTitle.bottom - MARGIN_NARROW - 44 - MARGIN_NARROW)];
+    [ShareInstances addTopBottomBorderOnView:tableBgView];
+    [self.view addSubview:tableBgView];
     
+    packingTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.5, tableBgView.width, tableBgView.height - 1)];
+    packingTabelView.delegate = self;
+    packingTabelView.dataSource = self;
+    packingTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [tableBgView addSubview:packingTabelView];
+
+    UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 44, self.view.width, 44)];
+    [submitButton setBackgroundColor:[UIColor orangeColor]];
+    [submitButton setTitle:@"提交" forState:UIControlStateNormal];
+    [submitButton addTarget:self action:@selector(SubmitButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:submitButton];
     
+    [self loadPackings];
 }
 
-- (void)scanBarcode{
-    BarcodeScanViewController *barcodeScanVC = [[BarcodeScanViewController alloc] init];
-    
-    [self.rootViewNavController pushViewController:barcodeScanVC animated:YES];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SKUScaned:) name:KNOTIFICATION_SKUSCANED object:nil];
-    
-}
-
-- (void)SKUScaned:(NSNotification *)notification{
-    NSString *barcode = [notification.userInfo objectForKey:@"barcode"];
-    [self QuerySKUByBarcode:barcode];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNOTIFICATION_SKUSCANED object:nil];
-}
-
-- (void)QuerySKUByBarcode:(NSString *)barcode{
-    [SVProgressHUD showWithStatus:@"正在查询SKU"];
-    AVQuery *query = [SKU query];
-    [query whereKey:@"commodityCode" equalTo:barcode];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            if (objects.count > 0) {
-                SKU *sku = [objects objectAtIndex:0];
-                [hintLabel removeFromSuperview];
-                [skuNameLable setText:sku.skuName];
-                [SVProgressHUD showWithStatus:@"正在获取SKU缩略图"];
-                [sku.image getThumbnail:YES width:180 height:180 withBlock:^(UIImage *image, NSError *error) {
-                    if (!error) {
-                        [SVProgressHUD dismiss];
-                        [skuImage setImage:image];
-                    } else{
-                        [SVProgressHUD showErrorWithStatus:@"缩略图获取失败" duration:2];
-                    }
-                }];
-            } else{
-                [SVProgressHUD showErrorWithStatus:@"该商品不在系统管理范围内" duration:2];
-            }
-        } else{
-            [SVProgressHUD showErrorWithStatus:@"网络故障，SKU查询失败" duration:2];
-        }
-    }];
+-(void)doReturn{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)OnEditEntryDate{
-    CustomDatePickerView *customDatePickerView = [[CustomDatePickerView alloc] initWithFrame:self.frame withDefaultDate:selectedDate];
+    CustomDatePickerView *customDatePickerView = [[CustomDatePickerView alloc] initWithFrame:self.view.frame withDefaultDate:selectedDate];
     customDatePickerView.delegate = self;
-    [self addSubview:customDatePickerView];
+    [self.view addSubview:customDatePickerView];
 }
 
 - (void)dateChanged:(NSDate *)date{
@@ -148,6 +130,102 @@
     [dtLabel setText:[dateFormatter stringFromDate:selectedDate]];
 }
 
+-(void)loadPackings{
+    AVRelation *relation = [curSKU relationforKey:@"packingSpecification"];
+    AVQuery *query = [relation query];
+    [query orderByAscending:@"order"];
+    [SVProgressHUD showWithStatus:@"正在查询包装规格"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (objects.count > 0) {
+                [SVProgressHUD dismiss];
+                packings = objects;
+                [self initStockArray];
+                [packingTabelView reloadData];
+            }else{
+                [SVProgressHUD dismissWithError:@"没有查到SKU相应的包装规格" afterDelay:2];
+            }
+        } else{
+            [SVProgressHUD dismissWithError:@"网络错误，未能查询到包装规格" afterDelay:2];
+        }
+    }];
+}
 
+-(void)initStockArray{
+    stockArray = [[NSMutableArray alloc] init];
+    purchaseArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < packings.count; i++) {
+        [stockArray addObject:[NSNumber numberWithInt:0]];
+        [purchaseArray addObject:[NSNumber numberWithInt:0]];
+    }
+}
+
+-(void)SubmitButtonClick{
+    [SVProgressHUD showSuccessWithStatus:@"录入完成" duration:2];
+    NSInteger stockTotal = 0;
+    NSInteger purchaseTotal = 0;
+    for (int i = 0; i < packings.count; i++) {
+        stockTotal += [[stockArray objectAtIndex:i] integerValue];
+        purchaseTotal += [[purchaseArray objectAtIndex:i] integerValue];
+    }
+    
+    Stock *stockBeforePurchase = [Stock object];
+    stockBeforePurchase.sku = curSKU;
+    stockBeforePurchase.store = [ShareInstances getCurrentTerminalStore];
+    stockBeforePurchase.date = selectedDate;
+    stockBeforePurchase.updateFrom = [NSNumber numberWithInteger:curMode];
+    stockBeforePurchase.stock = [NSNumber numberWithInteger:stockTotal];
+    [stockBeforePurchase saveEventually];
+    
+    Stock *stockAfterPurchase = [Stock object];
+    stockAfterPurchase.sku = curSKU;
+    stockAfterPurchase.store = [ShareInstances getCurrentTerminalStore];
+    stockAfterPurchase.date = selectedDate;
+    stockAfterPurchase.updateFrom = [NSNumber numberWithInteger:curMode];
+    stockAfterPurchase.stock = [NSNumber numberWithInteger:stockTotal + purchaseTotal];
+    [stockAfterPurchase saveEventually];
+    
+    Purchases *purchases = [Purchases object];
+    purchases.sku = curSKU;
+    purchases.store = [ShareInstances getCurrentTerminalStore];
+    purchases.date = selectedDate;
+    purchases.count = [NSNumber numberWithInteger:purchaseTotal];
+    purchases.stockCountBeforePurchase = stockBeforePurchase.stock;
+    purchases.stockCountAfterPurchase = stockAfterPurchase.stock;
+    [purchases saveEventually];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+#pragma marks UITableViewDelegate
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [packings count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 90;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *cellid = @"packingCell";
+    PackingStockTableViewCell *cell = [packingTabelView dequeueReusableCellWithIdentifier:cellid];
+    if (cell == nil) {
+        cell = [[PackingStockTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid entryMode:curMode];
+        cell.delegate = self;
+    }
+    
+    [cell setPackingSpecification:[packings objectAtIndex:indexPath.row]];
+    return cell;
+}
+
+-(void)packing:(PackingSpecification *)packing StockEntried:(NSInteger)stock{
+    NSInteger index = [packings indexOfObject:packing];
+    [stockArray replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:(int)([packing.containsCount integerValue] * stock)]];
+}
+
+-(void)packing:(PackingSpecification *)packing PurchaseEntried:(NSInteger)purchase{
+    NSInteger index = [packings indexOfObject:packing];
+    [purchaseArray replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:(int)([packing.containsCount integerValue] * purchase)]];
+}
 
 @end

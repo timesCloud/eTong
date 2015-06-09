@@ -11,12 +11,15 @@
 #import "TerminalStore.h"
 #import "Delivery.h"
 
+@class Stock;
+
 @interface Purchases : AVObject<AVSubclassing>
 
 @property (nonatomic, weak) SKU *sku;
 @property (nonatomic, weak) TerminalStore *store;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSNumber *count;
-@property (nonatomic, strong) Delivery *syncFromDeliveryRecord;
+@property (nonatomic, strong) NSNumber *stockCountAfterPurchase;
+@property (nonatomic, strong) NSNumber *stockCountBeforePurchase;
 
 @end

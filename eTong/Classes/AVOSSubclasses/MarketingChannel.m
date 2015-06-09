@@ -10,7 +10,7 @@
 
 @implementation MarketingChannel
 
-@synthesize channelName, order, parentChannel;
+@dynamic channelName, order, parentChannel;
 
 + (NSString *)parseClassName{
     return @"MarketingChannel";

@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#define kSKUViewCellUnhighlightHeight 105
+
 @class SKU;
 
 @interface SKUTableViewCell : UITableViewCell
 
--(void)setSKU:(SKU *)sku WithHighlighted:(BOOL)highlighted;
+-(void)setSKU:(SKU *)sku;
 
 @end

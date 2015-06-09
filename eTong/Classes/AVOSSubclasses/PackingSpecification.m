@@ -10,7 +10,7 @@
 
 @implementation PackingSpecification
 
-@synthesize packingName, unit, image, containsCount, unitInBulk;
+@dynamic packingName, unit, image, containsCount, unitInBulk;
 
 + (NSString *)parseClassName{
     return @"PackingSpecification";

@@ -10,7 +10,7 @@
 
 @implementation Brand
 
-@synthesize brandName;
+@dynamic brandName;
 
 + (NSString *)parseClassName{
     return @"Brand";

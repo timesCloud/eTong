@@ -10,7 +10,7 @@
 
 @implementation TerminalStore
 
-@synthesize shopKeeper, storeName, address, location, telNo, businessLicenseNo, email, channel, shopFrontPhoto, sku;
+@dynamic shopKeeper, storeName, address, location, telNo, businessLicenseNo, email, channel, shopFrontPhoto, sku, brand;
 
 +(NSString *)parseClassName{
     return @"TerminalStore";

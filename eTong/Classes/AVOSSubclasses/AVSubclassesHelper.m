@@ -7,30 +7,30 @@
 //
 
 #import "AVSubclassesHelper.h"
-#import "SalesVolumeOrigin.h"
 #import "SKU.h"
 #import "Brand.h"
 #import "PackingSpecification.h"
 #import "TerminalStore.h"
 #import "MarketingChannel.h"
 #import "Stock.h"
-#import "SalesVolumeProcessed.h"
 #import "Purchases.h"
 #import "Delivery.h"
+#import "Promotion.h"
+#import "InvestigateEveryday.h"
 
 @implementation AVSubclassesHelper
 
 +(void) RegisterSubclasses {
-    [SalesVolumeOrigin registerSubclass];
     [SKU registerSubclass];
     [Brand registerSubclass];
     [PackingSpecification registerSubclass];
     [TerminalStore registerSubclass];
     [MarketingChannel registerSubclass];
     [Stock registerSubclass];
-    [SalesVolumeProcessed registerSubclass];
     [Purchases registerSubclass];
     [Delivery registerSubclass];
+    [Promotion registerSubclass];
+    [InvestigateEveryday registerSubclass];
 }
 
 @end

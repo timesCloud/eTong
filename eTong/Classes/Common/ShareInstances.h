@@ -43,6 +43,8 @@
 +(UILabel *)addSubTitleLabel:(NSString *)title withFrame:(CGRect)frame withSuperView:(UIView *)superView;
 +(UILabel *)addLabel:(NSString *)text withFrame:(CGRect)frame withSuperView:(UIView *)superView withTextColor:(UIColor *)color withAlignment:(NSTextAlignment)alignment withTextSize:(CGFloat)textSize;
 +(UIImageView *)addGoIndicateOnView:(UIView *)view;
++(UIView *)addNormalItemViewOnView:(UIView *)parent withY:(CGFloat)y withTitle:(NSString *)title canTouchUpInside:(BOOL)canTouchUpInside sender:(id)sender action:(SEL)action;
++(UILabel *)addModifiableLabelOnView:(UIView *)parent;
 
 +(void)setCurrentTerminalStore;
 +(TerminalStore *)getCurrentTerminalStore;
