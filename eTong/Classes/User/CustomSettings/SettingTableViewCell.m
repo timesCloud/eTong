@@ -26,7 +26,8 @@
     self = [super init];
     [self setBackgroundColor:NORMAL_BACKGROUND_COLOR];
     
-    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 5, self.width, 44)];
+    CGSize size = [[UIScreen mainScreen] applicationFrame].size;
+    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 5, size.width, 44)];
     [_bgView setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:_bgView];
     

@@ -18,5 +18,7 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSNumber *stock;
 @property (nonatomic, strong) NSNumber *updateFrom;//1表示盘点，2表示进货，3表示销售
+//@property (nonatomic, weak) Purchases *lastPurchase;
+@property (nonatomic, strong) NSNumber *stockRate;
 
 @end

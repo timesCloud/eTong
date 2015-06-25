@@ -11,8 +11,11 @@
 #define kSKUViewCellUnhighlightHeight 105
 
 @class SKU;
+@class TerminalStore;
 
 @interface SKUTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) TerminalStore *curTerminalStore;
 
 -(void)setSKU:(SKU *)sku;
 

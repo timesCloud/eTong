@@ -38,6 +38,7 @@
         if ([dict isKindOfClass:[NSDictionary class]])
         {
             self.title = [dict objectForKey:@"title"];
+            self.imageFile = [dict objectForKey:@"image"];
             self.tag = tag;
         }
     }

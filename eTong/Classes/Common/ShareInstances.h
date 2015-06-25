@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <AVOSCloud/AVOSCloud.h>
 #import "TerminalStore.h"
+#import "FinalDealer.h"
 
 @interface ShareInstances : NSObject
 
@@ -25,6 +26,8 @@
 + (void)setCurrentLocation:(CLLocation *)location;
 + (CLLocation *)getLastLocation;
 + (AVGeoPoint *)getLastGeoPoint;
++ (void)setLastAddress:(NSString *)address;
++ (NSString *)getLastAddress;
 
 + (void)loadPortraitOnView:(UIImageView *)view withDefaultImageName:(NSString *)imageName;
 + (void)loadPortraitOnView:(UIImageView *)view withDefaultImageName:(NSString *)imageName forceReload:(BOOL)forceRaload;
@@ -42,11 +45,15 @@
 
 +(UILabel *)addSubTitleLabel:(NSString *)title withFrame:(CGRect)frame withSuperView:(UIView *)superView;
 +(UILabel *)addLabel:(NSString *)text withFrame:(CGRect)frame withSuperView:(UIView *)superView withTextColor:(UIColor *)color withAlignment:(NSTextAlignment)alignment withTextSize:(CGFloat)textSize;
++(UIImageView *)addGoIndicateOnView:(UIView *)view withImageFrame:(CGRect)frame;
 +(UIImageView *)addGoIndicateOnView:(UIView *)view;
++(UIView *)addItemViewOnView:(UIView *)parent withY:(CGFloat)y withHeight:(CGFloat)height withTitle:(NSString *)title canTouchUpInside:(BOOL)canTouchUpInside sender:(id)sender action:(SEL)action;
 +(UIView *)addNormalItemViewOnView:(UIView *)parent withY:(CGFloat)y withTitle:(NSString *)title canTouchUpInside:(BOOL)canTouchUpInside sender:(id)sender action:(SEL)action;
-+(UILabel *)addModifiableLabelOnView:(UIView *)parent;
++(UILabel *)addModifiableLabelOnView:(UIView *)parent withDefaultText:(NSString *)text;
 
-+(void)setCurrentTerminalStore;
++(void)setCurrentTerminalStore:(TerminalStore *)terminalStore;
 +(TerminalStore *)getCurrentTerminalStore;
++(void)setCurrentFinalDealer:(FinalDealer *)finalDealer;
++(FinalDealer *)getCurrentFinalDealer;
 
 @end

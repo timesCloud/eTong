@@ -35,7 +35,8 @@
     [self setBackgroundColor:[UIColor clearColor]];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 90)];
+    CGSize size = [[UIScreen mainScreen] applicationFrame].size;
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, 90)];
     [ShareInstances addBottomBorderOnView:bgView];
     [bgView setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:bgView];

@@ -10,12 +10,15 @@
 #import "Defines.h"
 #import "UIView+XD.h"
 #import "SVProgressHUD.h"
+#import "FinalDealer.h"
 
 static AVUser *lastUser;
 static UIImage *currentUserHeadPortrait;
 static UIImage *currentUserHeadPortraitThumbnail;
 static CLLocation *lastLocation;
+static NSString *lastAddress;
 static TerminalStore *currentTerminalStore;
+static FinalDealer *currentFinalDealer;
 
 @implementation ShareInstances
 
@@ -88,6 +91,14 @@ static TerminalStore *currentTerminalStore;
     point.latitude = lastLocation.coordinate.latitude;
     point.longitude = lastLocation.coordinate.longitude;
     return point;
+}
+
++ (void)setLastAddress:(NSString *)address{
+    lastAddress = address;
+}
+
++ (NSString *)getLastAddress{
+    return lastAddress;
 }
 
 + (void)loadPortraitOnView:(UIImageView *)view withDefaultImageName:(NSString *)imageName forceReload:(BOOL)forceRaload {
@@ -188,17 +199,21 @@ static TerminalStore *currentTerminalStore;
     return [ShareInstances addLabel:title withFrame:frame withSuperView:superView withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_SUBTITLE];
 }
 
-+(UIImageView *)addGoIndicateOnView:(UIView *)view{
-    UIImageView *goImageView = [[UIImageView alloc] initWithFrame:CGRectMake(view.width - 44, (view.height - 44) / 2, 44, 44)];
++(UIImageView *)addGoIndicateOnView:(UIView *)view withImageFrame:(CGRect)frame{
+    UIImageView *goImageView = [[UIImageView alloc] initWithFrame:frame];
     [goImageView setImage:[UIImage imageNamed:@"go_normal.png"]];
     [goImageView setContentMode:UIViewContentModeCenter];
     [view addSubview:goImageView];
     return goImageView;
 }
 
-+(UIView *)addNormalItemViewOnView:(UIView *)parent withY:(CGFloat)y withTitle:(NSString *)title canTouchUpInside:(BOOL)canTouchUpInside sender:(id)sender action:(SEL)action{
-    UILabel *titleLabel = [ShareInstances addSubTitleLabel:@"title" withFrame:CGRectMake(MARGIN_NARROW, y, parent.width - MARGIN_NARROW * 2, TEXTSIZE_SUBTITLE) withSuperView:parent];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, titleLabel.bottom + MARGIN_NARROW, parent.width, 44)];
++(UIImageView *)addGoIndicateOnView:(UIView *)view{
+    return [ShareInstances addGoIndicateOnView:view withImageFrame:CGRectMake(view.width - 44, (view.height - 44) / 2, 44, 44)];
+}
+
++(UIView *)addItemViewOnView:(UIView *)parent withY:(CGFloat)y withHeight:(CGFloat)height withTitle:(NSString *)title canTouchUpInside:(BOOL)canTouchUpInside sender:(id)sender action:(SEL)action{
+    UILabel *titleLabel = [ShareInstances addSubTitleLabel:title withFrame:CGRectMake(MARGIN_NARROW, y, parent.width - MARGIN_NARROW * 2, TEXTSIZE_SUBTITLE) withSuperView:parent];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, titleLabel.bottom + MARGIN_NARROW, parent.width, height)];
     [view setBackgroundColor:[UIColor whiteColor]];
     [parent addSubview:view];
     [ShareInstances addBottomBorderOnView:view];
@@ -211,26 +226,30 @@ static TerminalStore *currentTerminalStore;
     return view;
 }
 
-+(UILabel *)addModifiableLabelOnView:(UIView *)parent{
-    UILabel *label = [ShareInstances addLabel:@"" withFrame:CGRectMake(MARGIN_WIDE, (parent.height - TEXTSIZE_BIG) / 2, parent.width - MARGIN_WIDE * 2 - 44, TEXTSIZE_BIG) withSuperView:parent withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_BIG];
++(UIView *)addNormalItemViewOnView:(UIView *)parent withY:(CGFloat)y withTitle:(NSString *)title canTouchUpInside:(BOOL)canTouchUpInside sender:(id)sender action:(SEL)action{
+    return [ShareInstances addItemViewOnView:parent withY:y withHeight:44 withTitle:title canTouchUpInside:canTouchUpInside sender:sender action:action];
+}
+
++(UILabel *)addModifiableLabelOnView:(UIView *)parent withDefaultText:(NSString *)text{
+    UILabel *label = [ShareInstances addLabel:text withFrame:CGRectMake(MARGIN_WIDE, (parent.height - TEXTSIZE_BIG) / 2, parent.width - MARGIN_WIDE * 2 - 44, TEXTSIZE_BIG) withSuperView:parent withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_BIG];
     
     return label;
 }
 
-+(void)setCurrentTerminalStore{
-    AVQuery *query = [TerminalStore query];
-    AVUser *user = [AVUser currentUser];
-    [query whereKey:@"shopKeeper" equalTo:user];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error && objects.count > 0) {
-            currentTerminalStore = [objects objectAtIndex:0];
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_COMENTITYLOADED object:self];
-        }
-    }];
++(void)setCurrentTerminalStore:(TerminalStore *)terminalStore{
+    currentTerminalStore = terminalStore;
 }
 
 +(TerminalStore *)getCurrentTerminalStore{
     return currentTerminalStore;
+}
+
++(void)setCurrentFinalDealer:(FinalDealer *)finalDealer{
+    currentFinalDealer = finalDealer;
+}
+
++(FinalDealer *)getCurrentFinalDealer{
+    return currentFinalDealer;
 }
 
 @end

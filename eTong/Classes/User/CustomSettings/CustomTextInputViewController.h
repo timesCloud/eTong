@@ -11,13 +11,13 @@
 @protocol CustomTextInputViewDelegate <NSObject>
 
 @required
-- (void)textChangedOnRow:(NSInteger)row;
+- (void)textChanged:(NSString *)text OnRow:(NSInteger)row;
 
 @end
 
 @interface CustomTextInputViewController : UIViewController
 
-- (instancetype)initWithTitle:(NSString *)title withRow:(NSInteger)row withOriginText:(NSString *)text withEditKey:(NSString *)key;
+- (instancetype)initWithTitle:(NSString *)title withRow:(NSInteger)row withOriginText:(NSString *)text;
 @property (nonatomic, weak) id<CustomTextInputViewDelegate> delegate;
 
 @end

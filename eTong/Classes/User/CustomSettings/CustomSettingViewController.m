@@ -52,7 +52,8 @@
     self.navigationBar.delegate = self;
     [self.view addSubview:self.navigationBar];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _navigationBar.bottom, self.view.width, self.view.height - _navigationBar.bottom)];
+    CGSize size = [[UIScreen mainScreen] applicationFrame].size;
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _navigationBar.bottom, size.width, size.height - _navigationBar.bottom)];
     [_tableView setBackgroundColor:NORMAL_BACKGROUND_COLOR];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;
@@ -74,7 +75,7 @@
 
 #pragma mark UITableViewDelegate and UiTableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 7;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -124,34 +125,6 @@
         case 4:
             [vCell setKey:@"签名" withValue:[curUser objectForKey:@"signature"]];
             break;
-        case 5:{
-            AVObject *industry = [curUser objectForKey:@"industry"];
-            [vCell setKey:@"行业" withValue:[industry objectForKey:@"categoryName"]];
-            break;
-        }
-        case 6:
-            if (favoriteSportDescription != nil) {
-                [vCell setKey:@"钟爱运动" withValue:favoriteSportDescription];
-            } else {
-                favoriteSportDescription = [[NSMutableString alloc] init];
-                AVRelation *relation = [[AVUser currentUser] relationforKey:@"favoriteSport"];
-                AVQuery *query = [relation query];
-                [query orderByAscending:@"order"];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        for (AVObject *sport in objects) {
-                            [favoriteSportDescription appendFormat:@"%@  ", [sport objectForKey:@"categoryName"]];
-                        }
-                    } else {
-                        [favoriteSportDescription appendString:@"网络不给力，没获取到哦..."];
-                    }
-                    
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:6 inSection:0];
-                    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-                }];
-            }
-            
-            break;
         default:
             break;
     }
@@ -165,7 +138,7 @@
             break;
         case 1:{
             NSString *nickname = [[AVUser currentUser] objectForKey:@"nickname"];
-            CustomTextInputViewController *customTextInputVC = [[CustomTextInputViewController alloc] initWithTitle:@"修改昵称" withRow:1 withOriginText:nickname withEditKey:@"nickname"];
+            CustomTextInputViewController *customTextInputVC = [[CustomTextInputViewController alloc] initWithTitle:@"修改昵称" withRow:1 withOriginText:@"nickname"];
             customTextInputVC.delegate = self;
             [self.navigationController pushViewController:customTextInputVC animated:YES];
             break;
@@ -186,21 +159,9 @@
         }
         case 4:{
             NSString *signature = [[AVUser currentUser] objectForKey:@"signature"];
-            CustomTextInputViewController *signatureTextInputVC = [[CustomTextInputViewController alloc] initWithTitle:@"修改签名" withRow:4 withOriginText:signature withEditKey:@"signature"];
+            CustomTextInputViewController *signatureTextInputVC = [[CustomTextInputViewController alloc] initWithTitle:@"修改签名" withRow:4 withOriginText:signature];
             signatureTextInputVC.delegate = self;
             [self.navigationController pushViewController:signatureTextInputVC animated:YES];
-            break;
-        }
-        case 5:{
-            IndustrySettingViewController *industrySettingVC = [[IndustrySettingViewController alloc] init];
-            industrySettingVC.delegate = self;
-            [self.navigationController pushViewController:industrySettingVC animated:YES];
-            break;
-        }
-        case 6:{
-            FavoriteSportSettingViewController *favoriteSportSettingVC = [[FavoriteSportSettingViewController alloc] init];
-            favoriteSportSettingVC.delegate = self;
-            [self.navigationController pushViewController:favoriteSportSettingVC animated:YES];
             break;
         }
         default:
@@ -221,17 +182,6 @@
 - (void)textChangedOnRow:(NSInteger)row{
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:row inSection:0];
     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-}
-
-- (void)industryChanged{
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:5 inSection:0];
-    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-}
-
-- (void)favoriteSportChanged{
-    favoriteSportDescription = nil;
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:6 inSection:0];
-    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark 头像编辑代码开始

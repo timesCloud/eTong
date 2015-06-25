@@ -25,6 +25,12 @@
 #import "SVProgressHUD.h"
 #import "SKUSearchResultViewController.h"
 #import "InvestigateEntryView.h"
+#import "TerminalStore.h"
+#import "TerminalStoreRegisterViewController.h"
+#import "HomeView.h"
+#import "GiftMallView.h"
+#import "FinalDealer.h"
+#import "TerminalStoreManagerView.h"
 
 @interface RootViewController () <SignInDelegate, SidebarViewDelegate, CityListDelegate, EAIntroDelegate> {
     UIView *navigationBar;
@@ -32,13 +38,18 @@
     UILabel *titleLabel;
     UIView *currentActiveView;
     NSInteger curUserCharacter;//当前用户角色，1为终端店，2为终极经销商
+    NSArray *terminalStores;
+    NSArray *finalDealers;
 }
 
 @property (nonatomic, strong) SidebarViewController* sidebarVC;
 @property (nonatomic, strong) SettingHomeView *settingHomeView;
+@property (nonatomic, strong) HomeView *homeView;
 @property (nonatomic, strong) SKUView *skuView;
 @property (nonatomic, strong) SorryView *sorryView;
 @property (nonatomic, strong) InvestigateEntryView *investigateEntryView;
+@property (nonatomic, strong) GiftMallView *giftMallView;
+@property (nonatomic, strong) TerminalStoreManagerView *terminalStoreManagerView;
 @property (nonatomic, strong) UIButton *rightButton;
 
 @end
@@ -65,8 +76,7 @@
     if ([AVUser currentUser] == nil) {
         [self doSignIn];
     } else {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(comentityLoaded:) name:KNOTIFICATION_COMENTITYLOADED object:nil];
-        [ShareInstances setCurrentTerminalStore];
+        [self loginStateChange:nil];
         //[self reloadSubViews];
     }
 }
@@ -97,15 +107,15 @@
         [self showIntroWithCrossDissolve];
     }
     
-    [self.sidebarVC setSelectedIndex:1 withSection:0];
-    [self menuItemSelectedOnIndex:1];//默认显示场馆页面
+    [self.sidebarVC setSelectedIndex:0 withSection:0];
+    [self menuItemSelectedOnIndex:0];//默认显示场馆页面
 }
 
 -(void)reloadMenu {
     AVUser *curUser = [AVUser currentUser];
     NSArray *items;
     if (curUser != nil) {
-        curUserCharacter = [[curUser objectForKey:@"character"] integerValue];
+        curUserCharacter = [[curUser objectForKey:@"role"] integerValue];
         switch (curUserCharacter) {
             case 1:
                 items = @[@{@"title":@"主页",@"imagenormal":@"home_normal.png",@"imagehighlight":@"home_highlight.png"},
@@ -118,12 +128,9 @@
                           @{@"title":@"设置",@"imagenormal":@"setting_normal.png",@"imagehighlight":@"setting_highlight.png"}];
                 break;
             case 2:
-                items = @[@{@"title":@"活动",@"imagenormal":@"featured_normal.png",@"imagehighlight":@"featured_highlight.png"},
-                          @{@"title":@"场馆",@"imagenormal":@"stadium_normal.png",@"imagehighlight":@"stadium_highlight.png"},
-                          @{@"title":@"团队",@"imagenormal":@"team_normal.png",@"imagehighlight":@"team_highlight.png"},
-                          @{@"title":@"赛事",@"imagenormal":@"coach_normal.png",@"imagehighlight":@"coach_highlight.png"},
-                          //@{@"title":@"赛事",@"imagenormal":@"competition_normal.png",@"imagehighlight":@"competition_highlight.png"},
-                          //@{@"title":@"资讯",@"imagenormal":@"news_normal.png",@"imagehighlight":@"news_highlight.png"},
+                items = @[@{@"title":@"主页",@"imagenormal":@"home_normal.png",@"imagehighlight":@"home_highlight.png"},
+                          @{@"title":@"终端店",@"imagenormal":@"mail_normal.png",@"imagehighlight":@"mall_highlight.png"},
+                          @{@"title":@"统计",@"imagenormal":@"stat_normal.png",@"imagehighlight":@"stat_highlight.png"},
                           @{@"title":@"设置",@"imagenormal":@"setting_normal.png",@"imagehighlight":@"setting_highlight.png"}];
                 break;
             case 3:
@@ -149,14 +156,47 @@
 }
 
 -(void)loginStateChange:(NSNotification *)notification {
-    if ([AVUser currentUser] == nil) {
+    AVUser *curUser = [AVUser currentUser];
+    if (curUser == nil) {
         [self doSignIn];
     } else{
-        switch ([[[AVUser currentUser] objectForKey:@"character"] integerValue]) {
-            case 1:
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(comentityLoaded:) name:KNOTIFICATION_COMENTITYLOADED object:nil];
-                [ShareInstances setCurrentTerminalStore];
+        NSInteger role = [[curUser objectForKey:@"role"] integerValue];
+        switch (role) {
+            case 1:{
+                AVQuery *query = [TerminalStore query];
+                [query whereKey:@"shopKeeper" equalTo:curUser];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        if (objects.count > 0) {
+                            terminalStores = objects;
+                            [ShareInstances setCurrentTerminalStore:[terminalStores objectAtIndex:0]];
+                            [self reloadSubViews];
+                        }
+                        else{
+                            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(comentityLoaded:) name:KNOTIFICATION_COMENTITYLOADED object:nil];
+                            [SVProgressHUD showErrorWithStatus:@"您还没有关联终端店" duration:3];
+                            TerminalStoreRegisterViewController *tsrVC = [[TerminalStoreRegisterViewController alloc] initWithTerminalStore:[TerminalStore object] withMode:0];
+                            [self.navigationController pushViewController:tsrVC animated:YES];
+                        }
+                    }
+                }];
                 break;
+            }
+            case 2:{
+                AVQuery *query = [FinalDealer query];
+                [query whereKey:@"manager" equalTo:curUser];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        if (objects.count > 0) {
+                            finalDealers = objects;
+                            [ShareInstances setCurrentFinalDealer:[finalDealers objectAtIndex:0]];
+                            [self reloadSubViews];
+                        }else{
+                            [SVProgressHUD showErrorWithStatus:@"您还没有登记品牌信息，请联系客服" duration:3];
+                        }
+                    }
+                }];
+            }
             default:
                 break;
         }
@@ -276,43 +316,106 @@
     [_rightButton removeFromSuperview];
     [_rightButton removeTarget:self action:@selector(scanBarcode) forControlEvents:UIControlEventTouchUpInside];
     CGRect frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height);
-    switch (index) {
+    NSInteger role = [[[AVUser currentUser] objectForKey:@"role"] integerValue];
+    switch (role) {
         case 1:
-            if (_skuView == nil) {
-                _skuView = [[SKUView alloc] initWithFrame:frame withController:self];
+            switch (index) {
+                case 0:
+                    if (_homeView == nil) {
+                        _homeView = [[HomeView alloc] initWithFrame:frame withController:self];
+                    }
+                    newView = _homeView;
+                    title= @"主页";
+                    break;
+                case 1:
+                    if (_skuView == nil) {
+                        _skuView = [[SKUView alloc] initWithFrame:frame withController:self];
+                    }
+                    newView = _skuView;
+                    title = @"SKU";
+                    [self->navigationBar addSubview:_rightButton];
+                    [_rightButton setImage:[UIImage imageNamed:@"barcodeScan.png"] forState:UIControlStateNormal];
+                    [_rightButton addTarget:self action:@selector(scanBarcode) forControlEvents:UIControlEventTouchUpInside];
+                    break;
+                case 2:
+                    if (_investigateEntryView == nil) {
+                        _investigateEntryView = [[InvestigateEntryView alloc] initWithFrame:frame withController:self];
+                    }
+                    newView = _investigateEntryView;
+                    title = @"每日一评";
+                    break;
+                case 6:
+                    if (_giftMallView == nil) {
+                        _giftMallView = [[GiftMallView alloc] initWithFrame:frame withController:self];
+                    }
+                    newView = _giftMallView;
+                    title = @"积分商城";
+                    break;
+                case 7:
+                    if (_settingHomeView == nil) {
+                        _settingHomeView = [[SettingHomeView alloc] initWithFrame:frame];
+                        _settingHomeView.homeViewController = self;
+                    }
+                    newView = _settingHomeView;
+                    title = @"系统设置";
+                    break;
+                default:
+                    //if (_sorryView == nil) {
+                    _sorryView = [[SorryView alloc] initWithFrame:scrollView.bounds withController:self];
+                    //}
+                    newView = _sorryView;
+                    title = @"抱歉";
+                    break;
             }
-            newView = _skuView;
-            title = @"SKU";
-            [self->navigationBar addSubview:_rightButton];
-            [_rightButton setImage:[UIImage imageNamed:@"barcodeScan.png"] forState:UIControlStateNormal];
-            [_rightButton addTarget:self action:@selector(scanBarcode) forControlEvents:UIControlEventTouchUpInside];
             break;
         case 2:
-            if (_investigateEntryView == nil) {
-                _investigateEntryView = [[InvestigateEntryView alloc] initWithFrame:frame withController:self];
+            switch (index) {
+                case 0:
+                    if (_homeView == nil) {
+                        _homeView = [[HomeView alloc] initWithFrame:frame withController:self];
+                    }
+                    newView = _homeView;
+                    title= @"主页";
+                    break;
+                case 1:
+                    if (_terminalStoreManagerView == nil) {
+                        _terminalStoreManagerView = [[TerminalStoreManagerView alloc] initWithFrame:frame withController:self];
+                    }
+                    newView = _terminalStoreManagerView;
+                    title = @"终端店管理";
+                    [self->navigationBar addSubview:_rightButton];
+                    [_rightButton setImage:[UIImage imageNamed:@"map_normal.png"] forState:UIControlStateNormal];
+                    [_rightButton addTarget:self action:@selector(scanBarcode) forControlEvents:UIControlEventTouchUpInside];
+                    break;
+                case 2:
+                    if (_investigateEntryView == nil) {
+                        _investigateEntryView = [[InvestigateEntryView alloc] initWithFrame:frame withController:self];
+                    }
+                    newView = _investigateEntryView;
+                    title = @"每日一评";
+                    break;
+                case 3:
+                    if (_settingHomeView == nil) {
+                        _settingHomeView = [[SettingHomeView alloc] initWithFrame:frame];
+                        _settingHomeView.homeViewController = self;
+                    }
+                    newView = _settingHomeView;
+                    title = @"系统设置";
+                    break;
+                default:
+                    //if (_sorryView == nil) {
+                    _sorryView = [[SorryView alloc] initWithFrame:scrollView.bounds withController:self];
+                    //}
+                    newView = _sorryView;
+                    title = @"抱歉";
+                    break;
             }
-            newView = _investigateEntryView;
-            title = @"每日一评";
             break;
-        case 4:
-            if (_settingHomeView == nil) {
-                _settingHomeView = [[SettingHomeView alloc] initWithFrame:frame];
-                _settingHomeView.homeViewController = self;
-            }
-            newView = _settingHomeView;
-            title = @"系统设置";
+        case 3:
+            
             break;
         default:
-            //if (_sorryView == nil) {
-                _sorryView = [[SorryView alloc] initWithFrame:scrollView.bounds withController:self];
-            //}
-            newView = _sorryView;
-            if(index == 0)
-                title = @"找活动";
-            else if (index == 2)
-                title = @"找团队";
-            else if (index == 3)
-                title = @"精彩赛事";
+            break;
     }
 
     if (currentActiveView != newView) {

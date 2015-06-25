@@ -10,7 +10,7 @@
 
 @implementation Purchases
 
-@dynamic sku, store, date, count, stockCountAfterPurchase, stockCountBeforePurchase;
+@dynamic sku, store, date, count, stockCountBeforePurchase, stockAfterPurchase, stockBeforePurchase;
 
 +(NSString *)parseClassName{
     return @"Purchases";

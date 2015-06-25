@@ -244,7 +244,8 @@
     layout.minimumInteritemSpacing      = 1.0;
     layout.minimumLineSpacing           = 1.0;
 
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, 320, self.view.bounds.size.height - 64 -48) collectionViewLayout:layout];
+    CGSize size = [[UIScreen mainScreen] applicationFrame].size;
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, size.width, size.height - 64 - 48 + 20) collectionViewLayout:layout];
     self.collectionView.allowsMultipleSelection = YES;
     [self.collectionView registerClass:[UzysAssetsViewCell class]
             forCellWithReuseIdentifier:kAssetsViewCellIdentifier];

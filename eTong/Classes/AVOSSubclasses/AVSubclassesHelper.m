@@ -17,6 +17,10 @@
 #import "Delivery.h"
 #import "Promotion.h"
 #import "InvestigateEveryday.h"
+#import "ImageText.h"
+#import "Article.h"
+#import "Gift.h"
+#import "FinalDealer.h"
 
 @implementation AVSubclassesHelper
 
@@ -31,6 +35,10 @@
     [Delivery registerSubclass];
     [Promotion registerSubclass];
     [InvestigateEveryday registerSubclass];
+    [ImageText registerSubclass];
+    [Article registerSubclass];
+    [Gift registerSubclass];
+    [FinalDealer registerSubclass];
 }
 
 @end

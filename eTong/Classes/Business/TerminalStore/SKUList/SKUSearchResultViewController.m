@@ -12,7 +12,7 @@
 #import "ShareInstances.h"
 #import "UIView+XD.h"
 #import "SKU.h"
-#import "StockEntryView.h"
+#import "StockEntryViewController.h"
 
 @interface SKUSearchResultViewController()<NormalNavigationDelegate>
 
@@ -76,11 +76,13 @@
 
 -(void)stockEntryButtonClick{
     StockEntryViewController *stockEntryVC = [[StockEntryViewController alloc] initWithSku:curSKU mode:1];
+    stockEntryVC.delegate = _skuView;
     [self.navigationController pushViewController:stockEntryVC animated:YES];
 }
 
 -(void)purchasesEntryButtonClick{
     StockEntryViewController *purchasesEntryVC = [[StockEntryViewController alloc] initWithSku:curSKU mode:2];
+    purchasesEntryVC.delegate = _skuView;
     [self.navigationController pushViewController:purchasesEntryVC animated:YES];
 }
 

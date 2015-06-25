@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class TerminalStore;
+
 @interface TerminalStoreRegisterViewController : UIViewController
+
+-(instancetype)initWithTerminalStore:(TerminalStore *)terminalStore withMode:(NSInteger)mode;
 
 @end

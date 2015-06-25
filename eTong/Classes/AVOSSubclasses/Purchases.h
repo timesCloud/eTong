@@ -8,6 +8,7 @@
 
 #import <AVOSCloud/AVOSCloud.h>
 #import "SKU.h"
+#import "Stock.h"
 #import "TerminalStore.h"
 #import "Delivery.h"
 
@@ -19,7 +20,8 @@
 @property (nonatomic, weak) TerminalStore *store;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSNumber *count;
-@property (nonatomic, strong) NSNumber *stockCountAfterPurchase;
 @property (nonatomic, strong) NSNumber *stockCountBeforePurchase;
+@property (nonatomic, weak) Stock *stockBeforePurchase;
+@property (nonatomic, weak) Stock *stockAfterPurchase;
 
 @end

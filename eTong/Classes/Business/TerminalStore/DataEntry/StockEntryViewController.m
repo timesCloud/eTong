@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 TsaoLipeng. All rights reserved.
 //
 
-#import "StockEntryView.h"
+#import "StockEntryViewController.h"
 #import "UIView+XD.h"
 #import "Defines.h"
 #import "ShareInstances.h"
@@ -18,7 +18,7 @@
 #import "NormalNavigationBar.h"
 #import "PackingStockTableViewCell.h"
 
-@interface StockEntryViewController()<CustomDatePickerViewDelegate, NormalNavigationDelegate, UITableViewDataSource, UITableViewDelegate, PackingStockTableViewCellDelegate>
+@interface StockEntryViewController()<CustomDatePickerViewDelegate, NormalNavigationDelegate, UITableViewDataSource, UITableViewDelegate, PackingStockTableViewCellDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) NormalNavigationBar *navigationBar;
 
@@ -37,6 +37,8 @@
     NSArray *packings;
     NSMutableArray *stockArray;
     NSMutableArray *purchaseArray;
+    
+    NSInteger lastStockAfterPurchase;
 }
 
 - (instancetype)initWithSku:(SKU *)sku mode:(NSInteger)mode{
@@ -51,7 +53,8 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.navigationBar = [[NormalNavigationBar alloc] initWithTitle:@"SKU详情"];
+    NSString *titleString = curSKU == 1 ? @"库存录入" : @"进货录入";
+    self.navigationBar = [[NormalNavigationBar alloc] initWithTitle:titleString];
     self.navigationBar.delegate = self;
     [self.view addSubview:self.navigationBar];
     
@@ -111,6 +114,7 @@
     [self.view addSubview:submitButton];
     
     [self loadPackings];
+    [self loadLastPurchase];
 }
 
 -(void)doReturn{
@@ -151,6 +155,21 @@
     }];
 }
 
+-(void)loadLastPurchase{
+    AVQuery *query = [Stock query];
+    [query whereKey:@"store" equalTo:[ShareInstances getCurrentTerminalStore]];
+    [query whereKey:@"sku" equalTo:curSKU];
+    [query whereKey:@"updateFrom" equalTo:[NSNumber numberWithInteger:2]];
+    [query orderByDescending:@"date"];
+    query.limit = 1;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects.count > 0) {
+            Stock *stock = [objects objectAtIndex:0];
+            lastStockAfterPurchase = [stock.stock integerValue];
+        }
+    }];
+}
+
 -(void)initStockArray{
     stockArray = [[NSMutableArray alloc] init];
     purchaseArray = [[NSMutableArray alloc] init];
@@ -161,40 +180,51 @@
 }
 
 -(void)SubmitButtonClick{
-    [SVProgressHUD showSuccessWithStatus:@"录入完成" duration:2];
     NSInteger stockTotal = 0;
     NSInteger purchaseTotal = 0;
     for (int i = 0; i < packings.count; i++) {
         stockTotal += [[stockArray objectAtIndex:i] integerValue];
         purchaseTotal += [[purchaseArray objectAtIndex:i] integerValue];
     }
+    if (curMode == 1) {
+        if (stockTotal > lastStockAfterPurchase) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"数据不符" message:@"您录入的当前库存总数已经超过了最近一次进货后的总库存量，请检查。如果库存确实有增长，请先录入进货记录" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"转到进货录入", nil];
+            [alertView show];
+        } else{
+            Stock *stock = [Stock object];
+            stock.sku = curSKU;
+            stock.store = [ShareInstances getCurrentTerminalStore];
+            stock.date = selectedDate;
+            stock.stock = [NSNumber numberWithInteger:stockTotal];
+            stock.updateFrom = [NSNumber numberWithInteger:1];
+            [SVProgressHUD showSuccessWithStatus:@"录入完成" duration:2];
+            [stock saveEventually:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    if ([_delegate respondsToSelector:@selector(stockDataChanged:)]) {
+                        [_delegate stockDataChanged:curSKU];
+                    }
+                }
+            }];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+        }
+    }else{
+        Purchases *purchases = [Purchases object];
+        purchases.sku = curSKU;
+        purchases.store = [ShareInstances getCurrentTerminalStore];
+        purchases.date = selectedDate;
+        purchases.count = [NSNumber numberWithInteger:purchaseTotal];
+        purchases.stockCountBeforePurchase = [NSNumber numberWithInteger:stockTotal];
+        [SVProgressHUD showSuccessWithStatus:@"录入完成" duration:2];
+        [purchases saveEventually:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                if ([_delegate respondsToSelector:@selector(stockDataChanged:)]) {
+                    [_delegate stockDataChanged:curSKU];
+                }
+            }
+        }];
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    }
     
-    Stock *stockBeforePurchase = [Stock object];
-    stockBeforePurchase.sku = curSKU;
-    stockBeforePurchase.store = [ShareInstances getCurrentTerminalStore];
-    stockBeforePurchase.date = selectedDate;
-    stockBeforePurchase.updateFrom = [NSNumber numberWithInteger:curMode];
-    stockBeforePurchase.stock = [NSNumber numberWithInteger:stockTotal];
-    [stockBeforePurchase saveEventually];
-    
-    Stock *stockAfterPurchase = [Stock object];
-    stockAfterPurchase.sku = curSKU;
-    stockAfterPurchase.store = [ShareInstances getCurrentTerminalStore];
-    stockAfterPurchase.date = selectedDate;
-    stockAfterPurchase.updateFrom = [NSNumber numberWithInteger:curMode];
-    stockAfterPurchase.stock = [NSNumber numberWithInteger:stockTotal + purchaseTotal];
-    [stockAfterPurchase saveEventually];
-    
-    Purchases *purchases = [Purchases object];
-    purchases.sku = curSKU;
-    purchases.store = [ShareInstances getCurrentTerminalStore];
-    purchases.date = selectedDate;
-    purchases.count = [NSNumber numberWithInteger:purchaseTotal];
-    purchases.stockCountBeforePurchase = stockBeforePurchase.stock;
-    purchases.stockCountAfterPurchase = stockAfterPurchase.stock;
-    [purchases saveEventually];
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma marks UITableViewDelegate
@@ -226,6 +256,16 @@
 -(void)packing:(PackingSpecification *)packing PurchaseEntried:(NSInteger)purchase{
     NSInteger index = [packings indexOfObject:packing];
     [purchaseArray replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:(int)([packing.containsCount integerValue] * purchase)]];
+}
+
+#pragma mark UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        StockEntryViewController *stockEntryVC = [[StockEntryViewController alloc] initWithSku:curSKU mode:2];
+        [self.navigationController pushViewController:stockEntryVC animated:YES];
+    } else{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 @end

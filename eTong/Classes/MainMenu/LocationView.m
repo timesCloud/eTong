@@ -55,12 +55,12 @@ static CGFloat refreshButtonSize = 44.0f;
     [self addSubview:_refreshButton];
     
     UIImageView *locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_refreshButton.frame.origin.x + _refreshButton.width + locationLabelMarginRight, _refreshButton.y, 8, refreshButtonSize)];
-    [locationImageView setImage:[UIImage imageNamed:@"location_small_green.png"]];
+    [locationImageView setImage:[UIImage imageNamed:@"location_small.png"]];
     [locationImageView setContentMode:UIViewContentModeCenter];
     [self addSubview:locationImageView];
     
     _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(locationImageView.frame.origin.x + locationImageView.width + locationLabelMarginRight, _refreshButton.y, locationLabelWidth, refreshButtonSize)];
-    [_locationLabel setTextColor:[UIColor grayColor]];
+    [_locationLabel setTextColor:[UIColor whiteColor]];
     [_locationLabel setFont:[UIFont systemFontOfSize:locationLabelTextSize]];
     [self addSubview:_locationLabel];
     
@@ -72,6 +72,8 @@ static CGFloat refreshButtonSize = 44.0f;
 
 - (void)onLocationUpdated:(NSNotification *)notification
 {
+    _locationLabel.text = [ShareInstances getLastAddress];
+    /*
     // 获取当前所在的城市名
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     //根据经纬度反向地理编译出地址信息
@@ -82,7 +84,8 @@ static CGFloat refreshButtonSize = 44.0f;
              CLPlacemark *placemark = [array objectAtIndex:0];
             
              //获取城市
-             NSString *city = placemark.locality;
+             NSString *city = placemark.name;//placemark.locality;
+             //NSString *a = placemark.
              if (!city) {
                  //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
                  city = placemark.administrativeArea;
@@ -98,7 +101,7 @@ static CGFloat refreshButtonSize = 44.0f;
          {
              NSLog(@"An error occurred = %@", error);
          }
-     }];
+     }];*/
 }
 
 @end

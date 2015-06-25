@@ -19,6 +19,7 @@
 #define KNOTIFICATION_LOCATIONUPDATED @"locationUpdated"
 #define KNOTIFICATION_SKUSCANED @"skuScaned"
 #define KNOTIFICATION_COMENTITYLOADED @"terminalStoreLoaded"
+#define KNOTIFICATION_HASNOTTERMINALSTORE @"hasntTerminalStore"
 
 //UI定义
 #define STATU_BAR_HEIGHT 20
@@ -59,17 +60,13 @@
 //表单排序类型
 #define DataOrderTypeCount 6
 enum DataOrderType{
-    dotDefault = 0,
-    dotCanOrder,
-    dotNear,
-    dotCheap,
-    dotPopularity,
-    dotEvaluation
+    dotStockRateAsc = 0,
+    dotStockRateDesc,
 };
 typedef enum DataOrderType DataOrderType;
 const NSArray *___DataOrderType;
 // 创建初始化函数。等于用宏创建一个getter函数
-#define DataOrderTypeGet (___DataOrderType == nil ? ___DataOrderType = [[NSArray alloc] initWithObjects:@"默认排序",@"可预订",@"离我最近",@"价格最低",@"人气最高",@"评分最高", nil] : ___DataOrderType)
+#define DataOrderTypeGet (___DataOrderType == nil ? ___DataOrderType = [[NSArray alloc] initWithObjects:@"库存率最低",@"库存率最高", nil] : ___DataOrderType)
 // 枚举 to 字串
 #define DataOrderTypeString(type) ([DataOrderTypeGet objectAtIndex:type])
 // 字串 to 枚举

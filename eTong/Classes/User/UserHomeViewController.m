@@ -20,6 +20,7 @@
 #import "DynamicWaveView.h"
 #import "CustomSettingViewController.h"
 #import "ModifyPasswordViewController.h"
+#import "TerminalStoreRegisterViewController.h"
 
 #define lMargin 10
 #define lNormalTextSize 13.0f
@@ -265,8 +266,8 @@
 
 //点击“关于我们”
 - (void)SettingsOnTouch {
-    CustomSettingViewController *aboutUsVC = [[CustomSettingViewController alloc] init];
-    [self.navigationController pushViewController:aboutUsVC animated:YES];
+    TerminalStoreRegisterViewController *tsrVC = [[TerminalStoreRegisterViewController alloc] initWithTerminalStore:[ShareInstances getCurrentTerminalStore] withMode:2];
+    [self.navigationController pushViewController:tsrVC animated:YES];
 }
 
 //显示头像大图

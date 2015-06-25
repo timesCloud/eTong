@@ -14,4 +14,6 @@
 
 -(instancetype)initWithSKU:(SKU *)sku;
 
+@property (nonatomic, weak) UIView *skuView;
+
 @end

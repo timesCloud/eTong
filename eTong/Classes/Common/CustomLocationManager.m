@@ -88,6 +88,7 @@ static CustomeLocationManager *instance;
     
     [ShareInstances setCurrentLocation:currentLocation];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOCATIONUPDATED object:self];
+    [self setLastAddress];
     [self.locationManage stopUpdatingLocation];
 }
 
@@ -103,6 +104,32 @@ static CustomeLocationManager *instance;
 
 - (CLLocation *)lastLocation{
     return [ShareInstances getLastLocation];
+}
+
+- (void)setLastAddress{
+    // 获取当前所在的城市名
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    //根据经纬度反向地理编译出地址信息
+    [geocoder reverseGeocodeLocation:[ShareInstances getLastLocation] completionHandler:^(NSArray *array, NSError *error)
+     {
+         if (array.count > 0)
+         {
+             CLPlacemark *placemark = [array objectAtIndex:0];
+             
+             NSMutableString *address = [[NSMutableString alloc] init];
+             if (placemark.country != nil) [address appendString:placemark.country];
+             if (placemark.administrativeArea != nil) [address appendString:placemark.administrativeArea];
+             if (placemark.subAdministrativeArea != nil) [address appendString:placemark.subAdministrativeArea];
+             if (placemark.locality != nil) [address appendString:placemark.locality];
+             if (placemark.subLocality != nil) [address appendString:placemark.subLocality];
+             if (placemark.thoroughfare != nil) [address appendString:placemark.thoroughfare];
+             if (placemark.subThoroughfare != nil) [address appendString:placemark.subThoroughfare];
+             if (placemark.name != nil) [address appendString:placemark.name];
+
+             [ShareInstances setLastAddress:address];
+         }
+     }];
+
 }
 
 @end

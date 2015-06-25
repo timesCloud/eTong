@@ -2,13 +2,16 @@ PODS:
   - AVOSCloud (3.1.0)
   - AVOSCloudSNS (3.1.0):
     - AVOSCloud
+  - MJRefresh (2.0.0)
 
 DEPENDENCIES:
   - AVOSCloud
   - AVOSCloudSNS
+  - MJRefresh
 
 SPEC CHECKSUMS:
   AVOSCloud: fadaba350e8f28c371da50e056991ca774db8310
   AVOSCloudSNS: 0b3e7285227634f575b22f0c9c7bddb021ed1c84
+  MJRefresh: c791c1c88c890feaf656a6f0c3a0dfc2aa58baa0
 
 COCOAPODS: 0.34.2

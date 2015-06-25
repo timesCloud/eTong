@@ -24,15 +24,13 @@
 @implementation CustomTextInputViewController{
     NSInteger editRow;
     NSString *originText;
-    NSString *editKey;
 }
 
-- (instancetype)initWithTitle:(NSString *)title withRow:(NSInteger)row withOriginText:(NSString *)text withEditKey:(NSString *)key{
+- (instancetype)initWithTitle:(NSString *)title withRow:(NSInteger)row withOriginText:(NSString *)text{
     self = [super init];
     
     editRow = row;
     originText = text;
-    editKey = key;
     
     [self.view setBackgroundColor:NORMAL_BACKGROUND_COLOR];
     
@@ -55,6 +53,12 @@
     return self;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    [_textField becomeFirstResponder];
+}
+
 #pragma mark NormalNavigationDelegate
 - (void)doReturn {
     [self.navigationController popViewControllerAnimated:YES];
@@ -62,25 +66,12 @@
 
 - (void)rightButtonClick {
     [_textField setEnabled:NO];
-    if (originText != _textField.text) {
-        AVUser *curUser = [AVUser currentUser];
-        [curUser setObject:_textField.text forKey:editKey];
-        [SVProgressHUD showWithStatus:@"正在更新"];
-        [curUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                if ([_delegate respondsToSelector:@selector(textChangedOnRow:)]) {
-                    [_delegate textChangedOnRow:editRow];
-                }
-                
-                [SVProgressHUD dismiss];
-            } else {
-                [SVProgressHUD showErrorWithStatus:@"更新失败" duration:2];
-            }
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-    }else{
-        [self.navigationController popViewControllerAnimated:YES];
+
+    if ([_delegate respondsToSelector:@selector(textChanged:OnRow:)]) {
+        [_delegate textChanged:_textField.text OnRow:editRow];
     }
+    
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 

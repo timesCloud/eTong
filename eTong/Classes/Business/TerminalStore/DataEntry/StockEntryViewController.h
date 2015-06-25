@@ -10,8 +10,17 @@
 
 @class SKU;
 
+@protocol StockEntryViewDelegate <NSObject>
+
+@required
+-(void)stockDataChanged:(SKU *)sku;
+
+@end
+
 @interface StockEntryViewController : UIViewController
 
 - (instancetype)initWithSku:(SKU *)sku mode:(NSInteger)mode;
+
+@property (nonatomic, weak) id<StockEntryViewDelegate> delegate;
 
 @end
