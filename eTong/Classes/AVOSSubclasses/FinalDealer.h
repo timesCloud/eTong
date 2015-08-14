@@ -16,6 +16,7 @@
 @property (nonatomic, strong) Brand *brand;
 @property (nonatomic, strong) AVRelation *sku;
 @property (nonatomic, strong) AVRelation *terminalStores;
+@property (nonatomic, strong) AVRelation *appliedStores;
 @property (nonatomic, strong) NSString *dealerName;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *telNo;

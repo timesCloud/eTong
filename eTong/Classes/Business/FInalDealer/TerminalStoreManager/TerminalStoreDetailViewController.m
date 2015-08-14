@@ -16,10 +16,11 @@
 #import "MJRefresh.h"
 #import "TelHelper.h"
 #import "PreNavigationViewController.h"
+#import "StockEntryViewController.h"
 
 #define COUNT_PER_LOADING 9999
 
-@interface TerminalStoreDetailViewController()<NormalNavigationDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface TerminalStoreDetailViewController()<NormalNavigationDelegate, UITableViewDelegate, UITableViewDataSource, StockEntryViewDelegate>
 
 @property (nonatomic, strong) NormalNavigationBar *navigationBar;
 
@@ -226,10 +227,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    SKU *sku = [SKUs objectAtIndex:indexPath.row];
-//    SKUSearchResultViewController *ssrVC = [[SKUSearchResultViewController alloc] initWithSKU:sku];
-//    ssrVC.skuView = self;
-//    [_homeViewController.navigationController pushViewController:ssrVC animated:YES];
+    SKU *sku = [SKUs objectAtIndex:indexPath.row];
+    StockEntryViewController *seVC = [[StockEntryViewController alloc] initWithSku:sku mode:3];
+    seVC.curTerminalStore = curTerminalStore;
+    seVC.delegate = self;
+    [self.navigationController pushViewController:seVC animated:YES];
 }
 
 -(void)doReturn{
@@ -248,6 +250,13 @@
 - (void)doShowMap {
     PreNavigationViewController *pnVC = [[PreNavigationViewController alloc] initWithLocation:curTerminalStore.location withTargetPortrait:curTerminalStore.shopFrontPhoto withTitle:curTerminalStore.storeName withSubTitle:[NSString stringWithFormat:@"电话号码:%@", curTerminalStore.telNo]];
     [self.navigationController pushViewController:pnVC animated:YES];
+}
+
+
+#pragma marks StockEntryViewController
+-(void)stockDataChanged:(SKU *)sku{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[SKUs indexOfObject:sku] inSection:0];
+    [stockTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 

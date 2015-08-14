@@ -136,6 +136,10 @@
     UIView *addressView = [ShareInstances addNormalItemViewOnView:scrollView withY:storeNameView.bottom+MARGIN_NARROW withTitle:@"地址" canTouchUpInside:YES sender:self action:@selector(onAddressViewTouchUpInside)];
     addressLabel = [ShareInstances addModifiableLabelOnView:addressView withDefaultText:curTerminalStore.address];
     
+    if (showMode < 2) {//新注册的终端店，location使用当前位置
+        curTerminalStore.location = [ShareInstances getLastGeoPoint];
+    }
+    
     UIView *telNoView = [ShareInstances addNormalItemViewOnView:scrollView withY:addressView.bottom+MARGIN_NARROW withTitle:@"电话号码" canTouchUpInside:YES sender:self action:@selector(onTelNoViewTouchUpInside)];
     telNoLabel = [ShareInstances addModifiableLabelOnView:telNoView withDefaultText:curTerminalStore.telNo];
     

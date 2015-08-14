@@ -37,6 +37,14 @@
     return NO;
 }
 
++ (NSInteger)differFromDate:(NSDate *)beginDate toDate:(NSDate *)endDate{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    unsigned int unitFlag = NSDayCalendarUnit;
+    NSDateComponents *components = [calendar components:unitFlag fromDate:beginDate toDate:endDate options:0];
+    int days = [components day];
+    return days;
+}
+
 + (NSDateComponents *)getDateComponents:(NSDate *)date{
     NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
     [formatter setTimeStyle:NSDateFormatterMediumStyle];

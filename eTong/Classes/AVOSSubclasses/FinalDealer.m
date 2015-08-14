@@ -10,7 +10,7 @@
 #import "Brand.h"
 
 @implementation FinalDealer
-@dynamic manager, brand, sku, terminalStores, dealerName, address, telNo, businessLicenseNo;
+@dynamic manager, brand, sku, terminalStores, appliedStores, dealerName, address, telNo, businessLicenseNo;
 
 +(NSString *)parseClassName{
     return @"FinalDealer";

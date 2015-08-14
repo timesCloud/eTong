@@ -47,20 +47,24 @@
     
     packingNameLabel = [ShareInstances addLabel:@"" withFrame:CGRectMake(MARGIN_NARROW, packingImageView.bottom, 70, TEXTSIZE_CONTENT) withSuperView:bgView withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentCenter withTextSize:TEXTSIZE_CONTENT];
     
-    NSString *stockLabelString = mode == 1 ? @"库存" : @"进货前库存";
-    UILabel *stockLabel = [ShareInstances addLabel:stockLabelString withFrame:CGRectMake(self.width - MARGIN_NARROW * 2 - TEXTSIZE_CONTENT - 80, MARGIN_WIDE, 80, TEXTSIZE_SUBTITLE) withSuperView:self withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentCenter withTextSize:TEXTSIZE_SUBTITLE];
-    stockTextField = [[UITextField alloc] initWithFrame:CGRectMake(stockLabel.x, stockLabel.bottom + MARGIN_NARROW, stockLabel.width, 32)];
-    [stockTextField setBorderStyle:UITextBorderStyleRoundedRect];
-    stockTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-    stockTextField.returnKeyType = UIReturnKeyDone;
-    stockTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    stockTextField.delegate = self;
-    stockTextField.tag = 1;
-    [self addSubview:stockTextField];
-    unitLabel1 = [ShareInstances addLabel:@"" withFrame:CGRectMake(stockTextField.right + MARGIN_NARROW, stockTextField.y + (stockTextField.height - TEXTSIZE_CONTENT) / 2, TEXTSIZE_CONTENT, TEXTSIZE_CONTENT) withSuperView:self withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentCenter withTextSize:TEXTSIZE_CONTENT];
+    if (mode == 1 || mode == 2){//库存盘点/进货模式
+        NSString *stockLabelString = mode == 1 ? @"库存数量" : @"进货前库存";
+        UILabel *stockLabel = [ShareInstances addLabel:stockLabelString withFrame:CGRectMake(self.width - MARGIN_NARROW * 2 - TEXTSIZE_CONTENT - 80, MARGIN_WIDE, 80, TEXTSIZE_SUBTITLE) withSuperView:self withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentCenter withTextSize:TEXTSIZE_SUBTITLE];
+        stockTextField = [[UITextField alloc] initWithFrame:CGRectMake(stockLabel.x, stockLabel.bottom + MARGIN_NARROW, stockLabel.width, 32)];
+        [stockTextField setBorderStyle:UITextBorderStyleRoundedRect];
+        stockTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        stockTextField.returnKeyType = UIReturnKeyDone;
+        stockTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        stockTextField.delegate = self;
+        stockTextField.tag = 1;
+        [self addSubview:stockTextField];
+        unitLabel1 = [ShareInstances addLabel:@"" withFrame:CGRectMake(stockTextField.right + MARGIN_NARROW, stockTextField.y + (stockTextField.height - TEXTSIZE_CONTENT) / 2, TEXTSIZE_CONTENT, TEXTSIZE_CONTENT) withSuperView:self withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentCenter withTextSize:TEXTSIZE_CONTENT];
+    }
     
-    if (mode == 2) {
-        UILabel *purchaseLabel = [ShareInstances addLabel:@"进货" withFrame:CGRectMake(stockTextField.x - MARGIN_NARROW * 2 - 20 - TEXTSIZE_CONTENT - 80, MARGIN_WIDE, 80, TEXTSIZE_SUBTITLE) withSuperView:self withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentCenter withTextSize:TEXTSIZE_SUBTITLE];
+    if (mode == 2 || mode == 3) {
+        NSString *labelString = mode == 2 ? @"进货数量" : @"补货数量";
+        CGFloat x = stockTextField == nil ? packingImageView.right + MARGIN_WIDE : stockTextField.x - MARGIN_NARROW * 2 - 20 - TEXTSIZE_CONTENT - 80;
+        UILabel *purchaseLabel = [ShareInstances addLabel:labelString withFrame:CGRectMake(x, MARGIN_WIDE, 80, TEXTSIZE_SUBTITLE) withSuperView:self withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentCenter withTextSize:TEXTSIZE_SUBTITLE];
         purchaseTextField = [[UITextField alloc] initWithFrame:CGRectMake(purchaseLabel.x, purchaseLabel.bottom + MARGIN_NARROW, purchaseLabel.width, 32)];
         [purchaseTextField setBorderStyle:UITextBorderStyleRoundedRect];
         purchaseTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;

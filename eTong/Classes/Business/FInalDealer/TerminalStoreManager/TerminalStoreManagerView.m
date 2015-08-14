@@ -78,8 +78,8 @@
 
 //从AVCloud查询数据并刷新界面
 - (void)loadDataByClearAll:(BOOL)needClearAll withComplete:(void(^)())complete{
-    
-    AVQuery *query = [TerminalStore query];
+    AVRelation *relation = [[ShareInstances getCurrentFinalDealer] relationforKey:@"terminalStores"];
+    AVQuery *query = [relation query];
     [query orderByDescending:@"point"];
     query.limit = COUNT_PER_LOADING;
     query.cachePolicy = kPFCachePolicyNetworkElseCache;

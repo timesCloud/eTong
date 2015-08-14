@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class SKU;
+@class TerminalStore;
 
 @protocol StockEntryViewDelegate <NSObject>
 
@@ -22,5 +23,6 @@
 - (instancetype)initWithSku:(SKU *)sku mode:(NSInteger)mode;
 
 @property (nonatomic, weak) id<StockEntryViewDelegate> delegate;
+@property (nonatomic, strong) TerminalStore *curTerminalStore;
 
 @end

@@ -21,6 +21,7 @@
 #import "Article.h"
 #import "Gift.h"
 #import "FinalDealer.h"
+#import "Replenishment.h"
 
 @implementation AVSubclassesHelper
 
@@ -39,6 +40,7 @@
     [Article registerSubclass];
     [Gift registerSubclass];
     [FinalDealer registerSubclass];
+    [Replenishment registerSubclass];
 }
 
 @end

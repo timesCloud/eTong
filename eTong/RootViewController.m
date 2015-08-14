@@ -31,6 +31,8 @@
 #import "GiftMallView.h"
 #import "FinalDealer.h"
 #import "TerminalStoreManagerView.h"
+#import "TerminalStoreSearchView.h"
+#import "TerminalStoreMapViewController.h"
 
 @interface RootViewController () <SignInDelegate, SidebarViewDelegate, CityListDelegate, EAIntroDelegate> {
     UIView *navigationBar;
@@ -50,6 +52,7 @@
 @property (nonatomic, strong) InvestigateEntryView *investigateEntryView;
 @property (nonatomic, strong) GiftMallView *giftMallView;
 @property (nonatomic, strong) TerminalStoreManagerView *terminalStoreManagerView;
+@property (nonatomic, strong) TerminalStoreSearchView *terminalStoreSearchView;
 @property (nonatomic, strong) UIButton *rightButton;
 
 @end
@@ -129,7 +132,8 @@
                 break;
             case 2:
                 items = @[@{@"title":@"主页",@"imagenormal":@"home_normal.png",@"imagehighlight":@"home_highlight.png"},
-                          @{@"title":@"终端店",@"imagenormal":@"mail_normal.png",@"imagehighlight":@"mall_highlight.png"},
+                          @{@"title":@"终端店管理",@"imagenormal":@"mail_normal.png",@"imagehighlight":@"mall_highlight.png"},
+                          @{@"title":@"添加终端店",@"imagenormal":@"mail_normal.png",@"imagehighlight":@"mall_highlight.png"},
                           @{@"title":@"统计",@"imagenormal":@"stat_normal.png",@"imagehighlight":@"stat_highlight.png"},
                           @{@"title":@"设置",@"imagenormal":@"setting_normal.png",@"imagehighlight":@"setting_highlight.png"}];
                 break;
@@ -382,19 +386,26 @@
                         _terminalStoreManagerView = [[TerminalStoreManagerView alloc] initWithFrame:frame withController:self];
                     }
                     newView = _terminalStoreManagerView;
-                    title = @"终端店管理";
+                    title = @"所有终端店";
                     [self->navigationBar addSubview:_rightButton];
                     [_rightButton setImage:[UIImage imageNamed:@"map_normal.png"] forState:UIControlStateNormal];
-                    [_rightButton addTarget:self action:@selector(scanBarcode) forControlEvents:UIControlEventTouchUpInside];
+                    [_rightButton addTarget:self action:@selector(showTerminalStoreMapView) forControlEvents:UIControlEventTouchUpInside];
                     break;
                 case 2:
-                    if (_investigateEntryView == nil) {
-                        _investigateEntryView = [[InvestigateEntryView alloc] initWithFrame:frame withController:self];
+                    if (_terminalStoreSearchView == nil) {
+                        _terminalStoreSearchView = [[TerminalStoreSearchView alloc] initWithFrame:frame withController:self];
                     }
-                    newView = _investigateEntryView;
-                    title = @"每日一评";
+                    newView = _terminalStoreSearchView;
+                    title = @"添加终端店";
                     break;
-                case 3:
+//                case 3:
+//                    if (_investigateEntryView == nil) {
+//                        _investigateEntryView = [[InvestigateEntryView alloc] initWithFrame:frame withController:self];
+//                    }
+//                    newView = _investigateEntryView;
+//                    title = @"每日一评";
+//                    break;
+                case 4:
                     if (_settingHomeView == nil) {
                         _settingHomeView = [[SettingHomeView alloc] initWithFrame:frame];
                         _settingHomeView.homeViewController = self;
@@ -434,6 +445,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SKUScaned:) name:KNOTIFICATION_SKUSCANED object:nil];
     
+}
+
+-(void)showTerminalStoreMapView{
+    TerminalStoreMapViewController *tsmVC = [[TerminalStoreMapViewController alloc] init];
+    [self.navigationController pushViewController:tsmVC animated:YES];
 }
 
 - (void)SKUScaned:(NSNotification *)notification{

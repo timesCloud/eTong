@@ -14,17 +14,19 @@
 
 @interface GiftTableViewCell()
 
-@property (retain, nonatomic) UIImageView *headerImageView;
-@property (retain, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UIImageView *headerImageView;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *priceLabel;
 @property (retain, nonatomic) UILabel *summaryLabel;
 
 @end
 
 @implementation GiftTableViewCell
-@synthesize titleLabel, summaryLabel, headerImageView;
+@synthesize titleLabel, priceLabel, summaryLabel, headerImageView;
 
 - (void)setArticle:(Gift *)gift{
     [titleLabel setText:gift.giftName];
+    [priceLabel setText:[NSString stringWithFormat:@"兑换价格：%ld积分", (long)[gift.point integerValue]]];
     [summaryLabel setText:gift.summary];
     
     CGFloat width = (kGiftCellHeight - MARGIN_WIDE * 2) * 2;
@@ -47,7 +49,8 @@
         
         CGSize size = [[UIScreen mainScreen] applicationFrame].size;
         titleLabel = [ShareInstances addLabel:@"" withFrame:CGRectMake(headerImageView.right + MARGIN_WIDE, headerImageView.y, size.width - headerImageView.right - MARGIN_WIDE - 44, TEXTSIZE_BIG) withSuperView:self withTextColor:NORMAL_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_BIG];
-        summaryLabel = [ShareInstances addLabel:@"" withFrame:CGRectMake(titleLabel.x, titleLabel.bottom + MARGIN_WIDE, titleLabel.width, headerImageView.height - titleLabel.bottom) withSuperView:self withTextColor:LIGHT_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_SUBTITLE];
+        priceLabel = [ShareInstances addLabel:@"" withFrame:CGRectMake(titleLabel.x, titleLabel.bottom + MARGIN_NARROW, titleLabel.width, TEXTSIZE_SUBTITLE) withSuperView:self withTextColor:[UIColor orangeColor] withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_SUBTITLE];
+        summaryLabel = [ShareInstances addLabel:@"" withFrame:CGRectMake(titleLabel.x, priceLabel.bottom + MARGIN_NARROW, titleLabel.width, headerImageView.height - priceLabel.bottom) withSuperView:self withTextColor:LIGHT_TEXT_COLOR withAlignment:NSTextAlignmentLeft withTextSize:TEXTSIZE_SUBTITLE];
         [summaryLabel setLineBreakMode:NSLineBreakByWordWrapping];
         summaryLabel.numberOfLines = 0;
         

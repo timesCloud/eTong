@@ -17,6 +17,7 @@
 #import "CustomDatePickerView.h"
 #import "NormalNavigationBar.h"
 #import "PackingStockTableViewCell.h"
+#import "Replenishment.h"
 
 @interface StockEntryViewController()<CustomDatePickerViewDelegate, NormalNavigationDelegate, UITableViewDataSource, UITableViewDelegate, PackingStockTableViewCellDelegate, UIAlertViewDelegate>
 
@@ -53,7 +54,10 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    NSString *titleString = curSKU == 1 ? @"库存录入" : @"进货录入";
+    NSString *titleString = curMode == 1 ? @"库存录入" : @"进货录入";
+    if (curMode == 1) titleString = @"库存录入";
+    else if (curMode == 2) titleString = @"进货录入";
+    else titleString = @"补货录入";
     self.navigationBar = [[NormalNavigationBar alloc] initWithTitle:titleString];
     self.navigationBar.delegate = self;
     [self.view addSubview:self.navigationBar];
@@ -157,7 +161,8 @@
 
 -(void)loadLastPurchase{
     AVQuery *query = [Stock query];
-    [query whereKey:@"store" equalTo:[ShareInstances getCurrentTerminalStore]];
+    if (_curTerminalStore == nil) _curTerminalStore = [ShareInstances getCurrentTerminalStore];
+    [query whereKey:@"store" equalTo:_curTerminalStore];
     [query whereKey:@"sku" equalTo:curSKU];
     [query whereKey:@"updateFrom" equalTo:[NSNumber numberWithInteger:2]];
     [query orderByDescending:@"date"];
@@ -186,7 +191,7 @@
         stockTotal += [[stockArray objectAtIndex:i] integerValue];
         purchaseTotal += [[purchaseArray objectAtIndex:i] integerValue];
     }
-    if (curMode == 1) {
+    if (curMode == 1) {//库存盘点
         if (stockTotal > lastStockAfterPurchase) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"数据不符" message:@"您录入的当前库存总数已经超过了最近一次进货后的总库存量，请检查。如果库存确实有增长，请先录入进货记录" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"转到进货录入", nil];
             [alertView show];
@@ -207,7 +212,7 @@
             }];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }
-    }else{
+    }else if (curMode == 2){//进货
         Purchases *purchases = [Purchases object];
         purchases.sku = curSKU;
         purchases.store = [ShareInstances getCurrentTerminalStore];
@@ -223,8 +228,23 @@
             }
         }];
         [self.navigationController popToRootViewControllerAnimated:NO];
+    }else{//补货
+        Replenishment *replenishment = [Replenishment object];
+        replenishment.sku = curSKU;
+        replenishment.store = _curTerminalStore;
+        replenishment.dealer = [ShareInstances getCurrentFinalDealer];
+        replenishment.count = [NSNumber numberWithInteger:purchaseTotal];
+        replenishment.date = selectedDate;
+        [SVProgressHUD showSuccessWithStatus:@"录入完成" duration:2];
+        [replenishment saveEventually:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                if ([_delegate respondsToSelector:@selector(stockDataChanged:)]) {
+                    [_delegate stockDataChanged:curSKU];
+                }
+            }
+        }];
+        [self.navigationController popViewControllerAnimated:NO];
     }
-    
 }
 
 #pragma marks UITableViewDelegate
