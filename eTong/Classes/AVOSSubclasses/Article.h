@@ -18,6 +18,6 @@
 @property(nonatomic,retain) AVFile *headerImageFile;
 @property(nonatomic,retain) AVRelation *imageText;
 @property(nonatomic,strong) NSArray *tag;
-
+@property(nonatomic,copy)NSString *url;
 
 @end

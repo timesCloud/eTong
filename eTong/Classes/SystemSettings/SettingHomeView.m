@@ -32,7 +32,6 @@
     [_tableView setBackgroundColor:NORMAL_BACKGROUND_COLOR];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:_tableView];
-    
     return self;
 }
 

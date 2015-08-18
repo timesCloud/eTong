@@ -15,12 +15,12 @@
 #import "Article.h"
 #import "MJRefresh.h"
 #import "NewsViewCell.h"
-
+#import "MBProgressHUD+MJ.h"
 #define COUNT_PER_LOADING 20
-
+#import "NLWebViewController.h"
 NSString *const TableViewCellIdentifier = @"NewsCell";
 
-@interface HomeView()<SGFocusImageFrameDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface HomeView()<SGFocusImageFrameDelegate, UITableViewDelegate, UITableViewDataSource,UIWebViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) UIViewController *rootViewController;
@@ -207,8 +207,20 @@ NSString *const TableViewCellIdentifier = @"NewsCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    MJTestViewController *test = [[MJTestViewController alloc] init];
-//    [self.navigationController pushViewController:test animated:YES];
+    Article *article=articleArray[indexPath.row];
+    NSString *urlStr=article.url;
+    NLWebViewController *webVC=[[NLWebViewController alloc]init];
+    UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:webVC];
+    webVC.urlStr=urlStr;
+    webVC.title=article.title;
+    //[self.rootViewController.navigationController pushViewController:webVC animated:YES];
+    [self.rootViewController presentViewController:nav animated:YES completion:^{
+        
+    }];
+    
+    NSLog(@"ffff");
+
 }
+
 
 @end
